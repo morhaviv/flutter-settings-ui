@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:settings_ui/src/utils/settings_theme_extension.dart';
 
 class IOSSettingsTile extends StatefulWidget {
   const IOSSettingsTile({
@@ -40,7 +41,7 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
   @override
   Widget build(BuildContext context) {
     final additionalInfo = IOSSettingsTileAdditionalInfo.of(context);
-    final theme = SettingsTheme.of(context);
+    final theme = Theme.of(context).extension<SettingsTheme>()!;
 
     return IgnorePointer(
       ignoring: !widget.enabled,
@@ -105,11 +106,11 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
         bottom: additionalInfo.needToShowDivider ? 24 : 8 * scaleFactor,
       ),
       decoration: BoxDecoration(
-        color: theme.themeData.settingsListBackground,
+        color: theme.settingsListBackground,
       ),
       child: DefaultTextStyle(
         style: TextStyle(
-          color: theme.themeData.titleTextColor,
+          color: theme.titleTextColor,
           fontSize: 13,
         ),
         child: widget.description!,
@@ -132,15 +133,15 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
             onChanged: widget.onToggle,
             activeColor: widget.enabled
                 ? widget.activeSwitchColor
-                : theme.themeData.inactiveTitleColor,
+                : theme.inactiveTitleColor,
           ),
         if (widget.tileType == SettingsTileType.navigationTile &&
             widget.value != null)
           DefaultTextStyle(
             style: TextStyle(
               color: widget.enabled
-                  ? theme.themeData.trailingTextColor
-                  : theme.themeData.inactiveTitleColor,
+                  ? theme.trailingTextColor
+                  : theme.inactiveTitleColor,
               fontSize: 17,
             ),
             child: widget.value!,
@@ -150,7 +151,7 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
             padding: const EdgeInsetsDirectional.only(start: 6, end: 2),
             child: IconTheme(
               data: IconTheme.of(context)
-                  .copyWith(color: theme.themeData.leadingIconsColor),
+                  .copyWith(color: theme.leadingIconsColor),
               child: Icon(
                 CupertinoIcons.chevron_forward,
                 size: 18 * scaleFactor,
@@ -198,8 +199,8 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
           widget.onPressed == null ? null : changePressState(isPressed: false),
       child: Container(
         color: isPressed
-            ? theme.themeData.tileHighlightColor
-            : theme.themeData.settingsSectionBackground,
+            ? theme.tileHighlightColor
+            : theme.settingsSectionBackground,
         padding: EdgeInsetsDirectional.only(start: 18),
         child: Row(
           children: [
@@ -209,8 +210,8 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
                 child: IconTheme.merge(
                   data: IconThemeData(
                     color: widget.enabled
-                        ? theme.themeData.leadingIconsColor
-                        : theme.themeData.inactiveTitleColor,
+                        ? theme.leadingIconsColor
+                        : theme.inactiveTitleColor,
                   ),
                   child: widget.leading!,
                 ),
@@ -233,8 +234,8 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
                             child: DefaultTextStyle(
                               style: TextStyle(
                                 color: widget.enabled
-                                    ? theme.themeData.settingsTileTextColor
-                                    : theme.themeData.inactiveTitleColor,
+                                    ? theme.settingsTileTextColor
+                                    : theme.inactiveTitleColor,
                                 fontSize: 16,
                               ),
                               child: widget.title!,
@@ -250,7 +251,7 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
                     Divider(
                       height: 0,
                       thickness: 0.7,
-                      color: theme.themeData.dividerColor,
+                      color: theme.dividerColor,
                     ),
                 ],
               ),

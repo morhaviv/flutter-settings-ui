@@ -4,7 +4,7 @@ import 'package:settings_ui/src/tiles/platforms/android_settings_tile.dart';
 import 'package:settings_ui/src/tiles/platforms/ios_settings_tile.dart';
 import 'package:settings_ui/src/tiles/platforms/web_settings_tile.dart';
 import 'package:settings_ui/src/utils/platform_utils.dart';
-import 'package:settings_ui/src/utils/settings_theme.dart';
+import 'package:settings_ui/src/utils/settings_theme_extension.dart';
 
 enum SettingsTileType { simpleTile, switchTile, navigationTile }
 
@@ -81,7 +81,7 @@ class SettingsTile extends AbstractSettingsTile {
 
   @override
   Widget build(BuildContext context) {
-    final theme = SettingsTheme.of(context);
+    final theme = Theme.of(context).extension<SettingsTheme>()!;
 
     switch (theme.platform) {
       case DevicePlatform.android:

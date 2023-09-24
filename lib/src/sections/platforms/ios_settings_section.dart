@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:settings_ui/src/tiles/platforms/ios_settings_tile.dart';
+import 'package:settings_ui/src/utils/settings_theme_extension.dart';
 
 class IOSSettingsSection extends StatelessWidget {
   const IOSSettingsSection({
@@ -16,7 +17,7 @@ class IOSSettingsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = SettingsTheme.of(context);
+    final theme = Theme.of(context).extension<SettingsTheme>()!;
     final isLastNonDescriptive = tiles.last is SettingsTile &&
         (tiles.last as SettingsTile).description == null;
     final scaleFactor = MediaQuery.of(context).textScaleFactor;
@@ -40,7 +41,7 @@ class IOSSettingsSection extends StatelessWidget {
               ),
               child: DefaultTextStyle(
                 style: TextStyle(
-                  color: theme.themeData.titleTextColor,
+                  color: theme.titleTextColor,
                   fontSize: 13,
                 ),
                 child: title!,

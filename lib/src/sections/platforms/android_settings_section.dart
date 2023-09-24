@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/src/tiles/abstract_settings_tile.dart';
 import 'package:settings_ui/src/utils/settings_theme.dart';
+import 'package:settings_ui/src/utils/settings_theme_extension.dart';
 
 class AndroidSettingsSection extends StatelessWidget {
   const AndroidSettingsSection({
@@ -20,7 +21,7 @@ class AndroidSettingsSection extends StatelessWidget {
   }
 
   Widget buildSectionBody(BuildContext context) {
-    final theme = SettingsTheme.of(context);
+    final theme = Theme.of(context).extension<SettingsTheme>()!;
     final scaleFactor = MediaQuery.of(context).textScaleFactor;
     final tileList = buildTileList();
 
@@ -40,13 +41,13 @@ class AndroidSettingsSection extends StatelessWidget {
           ),
           child: DefaultTextStyle(
             style: TextStyle(
-              color: theme.themeData.titleTextColor,
+              color: theme.titleTextColor,
             ),
             child: title!,
           ),
         ),
         Container(
-          color: theme.themeData.settingsSectionBackground,
+          color: theme.settingsSectionBackground,
           child: tileList,
         ),
       ],

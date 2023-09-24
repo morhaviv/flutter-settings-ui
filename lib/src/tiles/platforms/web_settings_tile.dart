@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:settings_ui/src/utils/settings_theme_extension.dart';
 
 class WebSettingsTile extends StatelessWidget {
   const WebSettingsTile({
@@ -32,7 +33,7 @@ class WebSettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = SettingsTheme.of(context);
+    final theme = Theme.of(context).extension<SettingsTheme>()!;
     final scaleFactor = MediaQuery.of(context).textScaleFactor;
 
     final cantShowAnimation = tileType == SettingsTileType.switchTile
@@ -53,7 +54,7 @@ class WebSettingsTile extends StatelessWidget {
                     onPressed?.call(context);
                   }
                 },
-          highlightColor: theme.themeData.tileHighlightColor,
+          highlightColor: theme.tileHighlightColor,
           child: Container(
             child: Row(
               children: [
@@ -64,7 +65,7 @@ class WebSettingsTile extends StatelessWidget {
                     ),
                     child: IconTheme(
                       data: IconTheme.of(context).copyWith(
-                        color: theme.themeData.leadingIconsColor,
+                        color: theme.leadingIconsColor,
                       ),
                       child: leading!,
                     ),
@@ -82,7 +83,7 @@ class WebSettingsTile extends StatelessWidget {
                       children: [
                         DefaultTextStyle(
                           style: TextStyle(
-                            color: theme.themeData.settingsTileTextColor,
+                            color: theme.settingsTileTextColor,
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
                           ),
@@ -93,7 +94,7 @@ class WebSettingsTile extends StatelessWidget {
                             padding: EdgeInsets.only(top: 4.0),
                             child: DefaultTextStyle(
                               style: TextStyle(
-                                color: theme.themeData.tileDescriptionTextColor,
+                                color: theme.tileDescriptionTextColor,
                               ),
                               child: value!,
                             ),
@@ -103,7 +104,7 @@ class WebSettingsTile extends StatelessWidget {
                             padding: EdgeInsets.only(top: 4.0),
                             child: DefaultTextStyle(
                               style: TextStyle(
-                                color: theme.themeData.tileDescriptionTextColor,
+                                color: theme.tileDescriptionTextColor,
                               ),
                               child: description!,
                             ),

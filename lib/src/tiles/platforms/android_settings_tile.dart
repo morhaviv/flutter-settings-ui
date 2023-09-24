@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:settings_ui/src/utils/settings_theme_extension.dart';
 
 class AndroidSettingsTile extends StatelessWidget {
   const AndroidSettingsTile({
@@ -31,7 +32,7 @@ class AndroidSettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = SettingsTheme.of(context);
+    final theme = Theme.of(context).extension<SettingsTheme>()!;
     final scaleFactor = MediaQuery.of(context).textScaleFactor;
 
     final cantShowAnimation = tileType == SettingsTileType.switchTile
@@ -52,7 +53,7 @@ class AndroidSettingsTile extends StatelessWidget {
                     onPressed?.call(context);
                   }
                 },
-          highlightColor: theme.themeData.tileHighlightColor,
+          highlightColor: theme.tileHighlightColor,
           child: Container(
             child: Row(
               children: [
@@ -62,8 +63,8 @@ class AndroidSettingsTile extends StatelessWidget {
                     child: IconTheme(
                       data: IconTheme.of(context).copyWith(
                         color: enabled
-                            ? theme.themeData.leadingIconsColor
-                            : theme.themeData.inactiveTitleColor,
+                            ? theme.leadingIconsColor
+                            : theme.inactiveTitleColor,
                       ),
                       child: leading!,
                     ),
@@ -82,8 +83,8 @@ class AndroidSettingsTile extends StatelessWidget {
                         DefaultTextStyle(
                           style: TextStyle(
                             color: enabled
-                                ? theme.themeData.settingsTileTextColor
-                                : theme.themeData.inactiveTitleColor,
+                                ? theme.settingsTileTextColor
+                                : theme.inactiveTitleColor,
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
                           ),
@@ -95,8 +96,8 @@ class AndroidSettingsTile extends StatelessWidget {
                             child: DefaultTextStyle(
                               style: TextStyle(
                                 color: enabled
-                                    ? theme.themeData.tileDescriptionTextColor
-                                    : theme.themeData.inactiveSubtitleColor,
+                                    ? theme.tileDescriptionTextColor
+                                    : theme.inactiveSubtitleColor,
                               ),
                               child: value!,
                             ),
@@ -107,8 +108,8 @@ class AndroidSettingsTile extends StatelessWidget {
                             child: DefaultTextStyle(
                               style: TextStyle(
                                 color: enabled
-                                    ? theme.themeData.tileDescriptionTextColor
-                                    : theme.themeData.inactiveSubtitleColor,
+                                    ? theme.tileDescriptionTextColor
+                                    : theme.inactiveSubtitleColor,
                               ),
                               child: description!,
                             ),
@@ -128,7 +129,7 @@ class AndroidSettingsTile extends StatelessWidget {
                           onChanged: onToggle,
                           activeColor: enabled
                               ? activeSwitchColor
-                              : theme.themeData.inactiveTitleColor,
+                              : theme.inactiveTitleColor,
                         ),
                       ),
                     ],
@@ -142,7 +143,7 @@ class AndroidSettingsTile extends StatelessWidget {
                       onChanged: onToggle,
                       activeColor: enabled
                           ? activeSwitchColor
-                          : theme.themeData.inactiveTitleColor,
+                          : theme.inactiveTitleColor,
                     ),
                   )
                 else if (trailing != null)

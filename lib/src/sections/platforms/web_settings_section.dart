@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:settings_ui/src/utils/settings_theme_extension.dart';
 
 class WebSettingsSection extends StatelessWidget {
   const WebSettingsSection({
@@ -19,7 +20,7 @@ class WebSettingsSection extends StatelessWidget {
   }
 
   Widget buildSectionBody(BuildContext context) {
-    final theme = SettingsTheme.of(context);
+    final theme = Theme.of(context).extension<SettingsTheme>()!;
     final scaleFactor = MediaQuery.of(context).textScaleFactor;
 
     return Padding(
@@ -37,17 +38,16 @@ class WebSettingsSection extends StatelessWidget {
               ),
               child: DefaultTextStyle(
                 style: TextStyle(
-                  color: theme.themeData.titleTextColor,
+                  color: theme.titleTextColor,
                   fontSize: 15,
                 ),
                 child: title!,
               ),
             ),
           Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             elevation: 4,
-            color: theme.themeData.settingsSectionBackground,
+            color: theme.settingsSectionBackground,
             child: buildTileList(),
           ),
         ],

@@ -6,6 +6,7 @@ import 'package:settings_ui/src/sections/platforms/web_settings_section.dart';
 import 'package:settings_ui/src/tiles/abstract_settings_tile.dart';
 import 'package:settings_ui/src/utils/platform_utils.dart';
 import 'package:settings_ui/src/utils/settings_theme.dart';
+import 'package:settings_ui/src/utils/settings_theme_extension.dart';
 
 class SettingsSection extends AbstractSettingsSection {
   const SettingsSection({
@@ -21,7 +22,7 @@ class SettingsSection extends AbstractSettingsSection {
 
   @override
   Widget build(BuildContext context) {
-    final theme = SettingsTheme.of(context);
+    final theme = Theme.of(context).extension<SettingsTheme>()!;
 
     switch (theme.platform) {
       case DevicePlatform.android:
