@@ -81,6 +81,7 @@ class _AndroidNotificationsScreenState
                 title: Text('Hide silent notifications in status bar'),
               ),
               SettingsTile.switchTile(
+                enabled: true,
                 initialValue: false,
                 onToggle: (_) {},
                 title: Text('Allow notification snoozing'),

@@ -17,6 +17,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     this.settingsTileTextColor,
     this.inactiveTitleColor,
     this.inactiveSubtitleColor,
+    this.disabledOverlayColor,
   });
 
   final DevicePlatform platform;
@@ -31,6 +32,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
   final Color? settingsTileTextColor;
   final Color? inactiveTitleColor;
   final Color? inactiveSubtitleColor;
+  final Color? disabledOverlayColor;
 
   @override
   ThemeExtension<SettingsTheme> copyWith({
@@ -46,6 +48,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     Color? settingsTileTextColor,
     Color? inactiveTitleColor,
     Color? inactiveSubtitleColor,
+    Color? disabledOverlayColor,
   }) {
     return SettingsTheme(
       platform: platform ?? this.platform,
@@ -60,6 +63,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
       settingsTileTextColor: settingsTileTextColor ?? this.settingsTileTextColor,
       inactiveTitleColor: inactiveTitleColor ?? this.inactiveTitleColor,
       inactiveSubtitleColor: inactiveSubtitleColor ?? this.inactiveSubtitleColor,
+      disabledOverlayColor: disabledOverlayColor ?? this.disabledOverlayColor,
     );
   }
 
@@ -81,6 +85,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
       settingsTileTextColor: Color.lerp(settingsTileTextColor, other.settingsTileTextColor, t),
       inactiveTitleColor: Color.lerp(inactiveTitleColor, other.inactiveTitleColor, t),
       inactiveSubtitleColor: Color.lerp(inactiveSubtitleColor, other.inactiveSubtitleColor, t),
+      disabledOverlayColor: Color.lerp(disabledOverlayColor, other.disabledOverlayColor, t),
     );
   }
 
@@ -98,7 +103,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
 
   static const defaultAndroidDarkTheme = SettingsTheme(
     platform: DevicePlatform.android,
-    settingsListBackground: Color.fromRGBO(240, 240, 240, 1),
+    settingsListBackground: Color.fromRGBO(27, 27, 27, 1),
     leadingIconsColor: Color.fromARGB(255, 197, 197, 197),
     tileDescriptionTextColor: Color.fromARGB(255, 198, 198, 198),
     tileHighlightColor: Color.fromARGB(255, 46, 46, 46),
@@ -138,23 +143,28 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
 
   static const defaultWebLightTheme = SettingsTheme(
     platform: DevicePlatform.web,
-      tileHighlightColor: Color.fromARGB(255, 220, 220, 220),
-      settingsListBackground: Color.fromRGBO(240, 240, 240, 1),
-      titleTextColor: Color.fromRGBO(11, 87, 208, 1),
-      settingsSectionBackground: CupertinoColors.white,
-      settingsTileTextColor: Color.fromARGB(255, 27, 27, 27),
-      tileDescriptionTextColor: Color.fromARGB(255, 70, 70, 70),
-      leadingIconsColor: Color.fromARGB(255, 70, 70, 70),
+    tileHighlightColor: Color.fromARGB(255, 220, 220, 220),
+    settingsListBackground: Color.fromRGBO(240, 240, 240, 1),
+    titleTextColor: Color.fromRGBO(11, 87, 208, 1),
+    settingsSectionBackground: CupertinoColors.white,
+    settingsTileTextColor: Color.fromARGB(255, 27, 27, 27),
+    tileDescriptionTextColor: Color.fromARGB(255, 70, 70, 70),
+    leadingIconsColor: Color.fromARGB(255, 70, 70, 70),
+    disabledOverlayColor: Color.fromRGBO(255, 255, 255, 0.65),
+    inactiveTitleColor: Color.fromARGB(255, 146, 144, 148),
+    inactiveSubtitleColor: Color.fromARGB(255, 197, 196, 201),
   );
 
   static const defaultWebDarkTheme = SettingsTheme(
     platform: DevicePlatform.web,
-      tileHighlightColor: Color.fromARGB(255, 46, 46, 46),
-      settingsListBackground: Color.fromRGBO(32, 33, 36, 1),
-      titleTextColor: Color.fromRGBO(232, 234, 237, 1),
-      settingsSectionBackground: Color(0xFF292a2d),
-      settingsTileTextColor: Color.fromARGB(232, 234, 237, 240),
-      tileDescriptionTextColor: Color.fromARGB(154, 160, 166, 198),
-      leadingIconsColor: Color.fromARGB(255, 197, 197, 197),
+    tileHighlightColor: Color.fromARGB(255, 46, 46, 46),
+    settingsListBackground: Color.fromRGBO(32, 33, 36, 1),
+    titleTextColor: Color.fromRGBO(232, 234, 237, 1),
+    settingsSectionBackground: Color(0xFF292a2d),
+    settingsTileTextColor: Color.fromARGB(232, 234, 237, 240),
+    tileDescriptionTextColor: Color.fromARGB(154, 160, 166, 198),
+    leadingIconsColor: Color.fromARGB(255, 197, 197, 197),
+    inactiveTitleColor: Color.fromARGB(255, 118, 117, 122),
+    inactiveSubtitleColor: Color.fromARGB(255, 71, 70, 74),
   );
 }

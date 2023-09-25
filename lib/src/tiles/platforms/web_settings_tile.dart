@@ -36,14 +36,11 @@ class WebSettingsTile extends StatelessWidget {
     final theme = Theme.of(context).extension<SettingsTheme>()!;
     final scaleFactor = MediaQuery.of(context).textScaleFactor;
 
-    final cantShowAnimation = tileType == SettingsTileType.switchTile
-        ? onToggle == null && onPressed == null
-        : onPressed == null;
+    final cantShowAnimation = tileType == SettingsTileType.switchTile ? onToggle == null && onPressed == null : onPressed == null;
 
-    return IgnorePointer(
+    Widget tile = IgnorePointer(
       ignoring: !enabled,
       child: Material(
-        color: Colors.transparent,
         child: InkWell(
           onTap: cantShowAnimation
               ? null
@@ -65,7 +62,9 @@ class WebSettingsTile extends StatelessWidget {
                     ),
                     child: IconTheme(
                       data: IconTheme.of(context).copyWith(
-                        color: theme.leadingIconsColor,
+                        color: this.enabled
+                            ? theme.leadingIconsColor
+                            : theme.inactiveTitleColor
                       ),
                       child: leading!,
                     ),
@@ -82,19 +81,18 @@ class WebSettingsTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         DefaultTextStyle(
-                          style: TextStyle(
-                            color: theme.settingsTileTextColor,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          child: title ?? Container(),
-                        ),
+                            style: TextStyle(
+                              color: this.enabled ? theme.settingsTileTextColor : theme.inactiveTitleColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            child: title ?? Container()),
                         if (value != null)
                           Padding(
                             padding: EdgeInsets.only(top: 4.0),
                             child: DefaultTextStyle(
                               style: TextStyle(
-                                color: theme.tileDescriptionTextColor,
+                                color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
                               ),
                               child: value!,
                             ),
@@ -104,7 +102,7 @@ class WebSettingsTile extends StatelessWidget {
                             padding: EdgeInsets.only(top: 4.0),
                             child: DefaultTextStyle(
                               style: TextStyle(
-                                color: theme.tileDescriptionTextColor,
+                                color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
                               ),
                               child: description!,
                             ),
@@ -133,8 +131,7 @@ class WebSettingsTile extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsetsDirectional.only(end: 8),
                         child: Switch(
-                          activeColor: activeSwitchColor ??
-                              Color.fromRGBO(138, 180, 248, 1.0),
+                          activeColor: enabled ? activeSwitchColor : theme.inactiveTitleColor ?? Color.fromRGBO(138, 180, 248, 1.0),
                           value: initialValue,
                           onChanged: onToggle,
                         ),
@@ -143,12 +140,10 @@ class WebSettingsTile extends StatelessWidget {
                   )
                 else if (tileType == SettingsTileType.switchTile)
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.only(start: 16, end: 8),
+                    padding: const EdgeInsetsDirectional.only(start: 16, end: 8),
                     child: Switch(
                       value: initialValue,
-                      activeColor: activeSwitchColor ??
-                          Color.fromRGBO(138, 180, 248, 1.0),
+                      activeColor: enabled ? activeSwitchColor : theme.inactiveTitleColor ?? Color.fromRGBO(138, 180, 248, 1.0),
                       onChanged: onToggle,
                     ),
                   )
@@ -162,6 +157,14 @@ class WebSettingsTile extends StatelessWidget {
           ),
         ),
       ),
+    );
+
+    if (enabled) {
+      return tile;
+    }
+    return ColorFiltered(
+      colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.65), BlendMode.srcATop),
+      child: tile,
     );
   }
 }
