@@ -5,17 +5,17 @@ import 'package:settings_ui/src/utils/platform_utils.dart';
 class SettingsTheme extends ThemeExtension<SettingsTheme> {
   const SettingsTheme({
     required this.platform,
-    required this.settingsListBackground,
-    required this.trailingTextColor,
-    required this.leadingIconsColor,
-    required this.settingsSectionBackground,
-    required this.dividerColor,
-    required this.tileDescriptionTextColor,
-    required this.tileHighlightColor,
-    required this.titleTextColor,
-    required this.settingsTileTextColor,
-    required this.inactiveTitleColor,
-    required this.inactiveSubtitleColor,
+    this.settingsListBackground,
+    this.trailingTextColor,
+    this.leadingIconsColor,
+    this.settingsSectionBackground,
+    this.dividerColor,
+    this.tileDescriptionTextColor,
+    this.tileHighlightColor,
+    this.titleTextColor,
+    this.settingsTileTextColor,
+    this.inactiveTitleColor,
+    this.inactiveSubtitleColor,
   });
 
   final DevicePlatform platform;
@@ -83,18 +83,27 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     );
   }
 
-  static const defaultTheme = SettingsTheme(
+  static const defaultLightTheme = SettingsTheme(
     platform: DevicePlatform.android,
-    settingsListBackground: Colors.white,
-    trailingTextColor: Colors.black,
-    leadingIconsColor: Colors.grey,
-    settingsSectionBackground: Colors.grey,
-    dividerColor: Colors.grey,
-    tileDescriptionTextColor: Colors.grey,
-    tileHighlightColor: Colors.blue,
-    titleTextColor: Colors.black,
-    settingsTileTextColor: Colors.black,
-    inactiveTitleColor: Colors.grey,
-    inactiveSubtitleColor: Colors.grey,
+    settingsListBackground: Color.fromRGBO(240, 240, 240, 1),
+    leadingIconsColor: Color.fromARGB(255, 70, 70, 70),
+    tileDescriptionTextColor: Color.fromARGB(255, 70, 70, 70),
+    tileHighlightColor: Color.fromARGB(255, 220, 220, 220),
+    titleTextColor: Color.fromRGBO(11, 87, 208, 1),
+    settingsTileTextColor: Color.fromARGB(255, 27, 27, 27),
+    inactiveTitleColor: Color.fromARGB(255, 146, 144, 148),
+    inactiveSubtitleColor: Color.fromARGB(255, 197, 196, 201),
+  );
+
+  static const defaultDarkTheme = SettingsTheme(
+    platform: DevicePlatform.android,
+    settingsListBackground: Color.fromRGBO(240, 240, 240, 1),
+    leadingIconsColor: Color.fromARGB(255, 197, 197, 197),
+    tileDescriptionTextColor: Color.fromARGB(255, 198, 198, 198),
+    tileHighlightColor: Color.fromARGB(255, 46, 46, 46),
+    titleTextColor: Color.fromRGBO(211, 227, 253, 1),
+    settingsTileTextColor: Color.fromARGB(255, 240, 240, 240),
+    inactiveTitleColor: Color.fromARGB(255, 118, 117, 122),
+    inactiveSubtitleColor: Color.fromARGB(255, 71, 70, 74),
   );
 }

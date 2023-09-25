@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:settings_ui/src/sections/abstract_settings_section.dart';
 import 'package:settings_ui/src/utils/platform_utils.dart';
 import 'package:settings_ui/src/utils/settings_theme.dart';
+import 'package:settings_ui/src/utils/settings_theme_extension.dart';
 import 'package:settings_ui/src/utils/theme_provider.dart';
 
 enum ApplicationType {
@@ -34,8 +35,8 @@ class SettingsList extends StatelessWidget {
   final bool shrinkWrap;
   final ScrollPhysics? physics;
   final DevicePlatform? platform;
-  final SettingsThemeData? lightTheme;
-  final SettingsThemeData? darkTheme;
+  final SettingsTheme? lightTheme;
+  final SettingsTheme? darkTheme;
   final Brightness? brightness;
   final EdgeInsetsGeometry? contentPadding;
   final List<AbstractSettingsSection> sections;
@@ -50,36 +51,56 @@ class SettingsList extends StatelessWidget {
       platform = this.platform!;
     }
 
-    final brightness = calculateBrightness(context);
+    SettingsTheme? themeData = Theme.of(context).extension<SettingsTheme>();
 
-    final themeData = ThemeProvider.getTheme(
-      context: context,
-      platform: platform,
-      brightness: brightness,
-    ).merge(theme: brightness == Brightness.dark ? darkTheme : lightTheme);
+    switch (brightness) {
+      case Brightness.dark:
+        if (this.darkTheme != null) {
+          themeData = this.darkTheme!;
+        }
+        break;
+      case Brightness.light:
+        if (this.lightTheme != null) {
+          themeData = this.lightTheme!;
+        }
+        break;
+
+      case null:
+        if (themeData != null) {
+          break;
+        }
+        if (this.lightTheme != null) {
+          themeData = this.lightTheme!;
+          break;
+        }
+        if (this.darkTheme != null) {
+          themeData = this.darkTheme!;
+          break;
+        }
+        break;
+    }
+
+    if (themeData == null) {
+      themeData = SettingsTheme.defaultLightTheme;
+    }
 
     return Container(
       color: themeData.settingsListBackground,
       width: MediaQuery.of(context).size.width,
       alignment: Alignment.center,
-      child: SettingsTheme(
-        themeData: themeData,
-        platform: platform,
-        child: ListView.builder(
-          physics: physics,
-          shrinkWrap: shrinkWrap,
-          itemCount: sections.length,
-          padding: contentPadding ?? calculateDefaultPadding(platform, context),
-          itemBuilder: (BuildContext context, int index) {
-            return sections[index];
-          },
-        ),
+      child: ListView.builder(
+        physics: physics,
+        shrinkWrap: shrinkWrap,
+        itemCount: sections.length,
+        padding: contentPadding ?? calculateDefaultPadding(platform, context),
+        itemBuilder: (BuildContext context, int index) {
+          return sections[index];
+        },
       ),
     );
   }
 
-  EdgeInsets calculateDefaultPadding(
-      DevicePlatform platform, BuildContext context) {
+  EdgeInsets calculateDefaultPadding(DevicePlatform platform, BuildContext context) {
     if (MediaQuery.of(context).size.width > 810) {
       double padding = (MediaQuery.of(context).size.width - 810) / 2;
       switch (platform) {
@@ -123,8 +144,7 @@ class SettingsList extends StatelessWidget {
 
   Brightness calculateBrightness(BuildContext context) {
     final materialBrightness = Theme.of(context).brightness;
-    final cupertinoBrightness = CupertinoTheme.of(context).brightness ??
-        MediaQuery.of(context).platformBrightness;
+    final cupertinoBrightness = CupertinoTheme.of(context).brightness ?? MediaQuery.of(context).platformBrightness;
 
     switch (applicationType) {
       case ApplicationType.material:
@@ -132,9 +152,7 @@ class SettingsList extends StatelessWidget {
       case ApplicationType.cupertino:
         return cupertinoBrightness;
       case ApplicationType.both:
-        return platform != DevicePlatform.iOS
-            ? materialBrightness
-            : cupertinoBrightness;
+        return platform != DevicePlatform.iOS ? materialBrightness : cupertinoBrightness;
     }
   }
 }
