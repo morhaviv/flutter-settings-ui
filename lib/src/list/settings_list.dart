@@ -81,7 +81,7 @@ class SettingsList extends StatelessWidget {
     }
 
     if (themeData == null) {
-      themeData = SettingsTheme.defaultLightTheme;
+      themeData = SettingsTheme.defaultAndroidLightTheme;
     }
 
     return Container(
