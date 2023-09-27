@@ -89,6 +89,49 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     );
   }
 
+  static SettingsTheme getTheme(Brightness brightness, DevicePlatform platform) {
+    switch (brightness) {
+      case Brightness.dark:
+        switch (platform) {
+          case DevicePlatform.android:
+          case DevicePlatform.fuchsia:
+          case DevicePlatform.linux:
+            return defaultAndroidDarkTheme;
+          case DevicePlatform.iOS:
+          case DevicePlatform.macOS:
+          case DevicePlatform.windows:
+            return defaultIosDarkTheme;
+          case DevicePlatform.web:
+            return defaultWebDarkTheme;
+          case DevicePlatform.device:
+            throw Exception(
+              'You can\'t use the DevicePlatform.device in this context. '
+                  'Incorrect platform: ThemeProvider.getTheme',
+            );
+        }
+        break;
+      case Brightness.light:
+        switch (platform) {
+          case DevicePlatform.android:
+          case DevicePlatform.fuchsia:
+          case DevicePlatform.linux:
+            return defaultAndroidLightTheme;
+          case DevicePlatform.iOS:
+          case DevicePlatform.macOS:
+          case DevicePlatform.windows:
+            return defaultIosLightTheme;
+          case DevicePlatform.web:
+            return defaultWebLightTheme;
+          case DevicePlatform.device:
+            throw Exception(
+              'You can\'t use the DevicePlatform.device in this context. '
+                  'Incorrect platform: ThemeProvider.getTheme',
+            );
+        }
+        break;
+    }
+  }
+
   static const defaultAndroidLightTheme = SettingsTheme(
     platform: DevicePlatform.android,
     settingsListBackground: Color.fromRGBO(240, 240, 240, 1),
