@@ -16,6 +16,8 @@ class IOSSettingsTile extends StatefulWidget {
     required this.activeSwitchColor,
     required this.enabled,
     required this.trailing,
+    required this.maxValue,
+    required this.sliderDivisions,
     Key? key,
   }) : super(key: key);
 
@@ -24,12 +26,14 @@ class IOSSettingsTile extends StatefulWidget {
   final Widget? title;
   final Widget? description;
   final Function(BuildContext context)? onPressed;
-  final Function(bool value)? onToggle;
+  final Function(dynamic value)? onToggle;
   final Widget? value;
-  final bool? initialValue;
+  final dynamic initialValue;
   final bool enabled;
   final Color? activeSwitchColor;
   final Widget? trailing;
+  final double? maxValue;
+  final double? sliderDivisions;
 
   @override
   _IOSSettingsTileState createState() => _IOSSettingsTileState();

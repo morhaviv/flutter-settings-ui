@@ -22,7 +22,10 @@ class SettingsSection extends AbstractSettingsSection {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).extension<SettingsTheme>()!;
+    SettingsTheme? theme = Theme.of(context).extension<SettingsTheme>();
+    if (theme == null) {
+      theme = SettingsTheme.getTheme(Brightness.light, PlatformUtils.detectPlatform(context));
+    }
 
     switch (theme.platform) {
       case DevicePlatform.android:

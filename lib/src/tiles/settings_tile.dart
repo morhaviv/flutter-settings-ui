@@ -6,7 +6,7 @@ import 'package:settings_ui/src/tiles/platforms/web_settings_tile.dart';
 import 'package:settings_ui/src/utils/platform_utils.dart';
 import 'package:settings_ui/src/utils/settings_theme_extension.dart';
 
-enum SettingsTileType { simpleTile, switchTile, navigationTile }
+enum SettingsTileType { simpleTile, switchTile, navigationTile, sliderTile }
 
 class SettingsTile extends AbstractSettingsTile {
   SettingsTile({
@@ -22,6 +22,8 @@ class SettingsTile extends AbstractSettingsTile {
     onToggle = null;
     initialValue = null;
     activeSwitchColor = null;
+    maxValue = null;
+    sliderDivisions = null;
     tileType = SettingsTileType.simpleTile;
   }
 
@@ -38,6 +40,8 @@ class SettingsTile extends AbstractSettingsTile {
     onToggle = null;
     initialValue = null;
     activeSwitchColor = null;
+    maxValue = null;
+    sliderDivisions = null;
     tileType = SettingsTileType.navigationTile;
   }
 
@@ -54,7 +58,28 @@ class SettingsTile extends AbstractSettingsTile {
     Key? key,
   }) : super(key: key) {
     value = null;
+    maxValue = null;
+    sliderDivisions = null;
     tileType = SettingsTileType.switchTile;
+  }
+
+
+  SettingsTile.sliderTile({
+    required this.initialValue,
+    required this.onToggle,
+    this.activeSwitchColor,
+    this.leading,
+    this.trailing,
+    required this.title,
+    this.description,
+    this.onPressed,
+    this.enabled = true,
+    this.maxValue,
+    this.sliderDivisions,
+    Key? key,
+  }) : super(key: key) {
+    value = null;
+    tileType = SettingsTileType.sliderTile;
   }
 
   /// The widget at the beginning of the tile
@@ -74,14 +99,19 @@ class SettingsTile extends AbstractSettingsTile {
 
   late final Color? activeSwitchColor;
   late final Widget? value;
-  late final Function(bool value)? onToggle;
+  late final Function(dynamic value)? onToggle;
   late final SettingsTileType tileType;
-  late final bool? initialValue;
+  late final dynamic initialValue;
   late final bool enabled;
+  late final double? maxValue;
+  late final double? sliderDivisions;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).extension<SettingsTheme>()!;
+    SettingsTheme? theme = Theme.of(context).extension<SettingsTheme>();
+    if (theme == null) {
+      theme = SettingsTheme.getTheme(Brightness.light, PlatformUtils.detectPlatform(context));
+    }
 
     switch (theme.platform) {
       case DevicePlatform.android:
@@ -99,6 +129,8 @@ class SettingsTile extends AbstractSettingsTile {
           activeSwitchColor: activeSwitchColor,
           initialValue: initialValue ?? false,
           trailing: trailing,
+          maxValue: maxValue,
+          sliderDivisions: sliderDivisions,
         );
       case DevicePlatform.iOS:
       case DevicePlatform.macOS:
@@ -115,6 +147,8 @@ class SettingsTile extends AbstractSettingsTile {
           enabled: enabled,
           activeSwitchColor: activeSwitchColor,
           initialValue: initialValue ?? false,
+          maxValue: maxValue,
+          sliderDivisions: sliderDivisions,
         );
       case DevicePlatform.web:
         return WebSettingsTile(
@@ -129,6 +163,8 @@ class SettingsTile extends AbstractSettingsTile {
           trailing: trailing,
           activeSwitchColor: activeSwitchColor,
           initialValue: initialValue ?? false,
+          maxValue: maxValue,
+          sliderDivisions: sliderDivisions,
         );
       case DevicePlatform.device:
         throw Exception(

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/src/utils/platform_utils.dart';
@@ -18,6 +20,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     this.inactiveTitleColor,
     this.inactiveSubtitleColor,
     this.disabledOverlayColor,
+    this.maxSliderWidth = 600,
   });
 
   final DevicePlatform platform;
@@ -33,6 +36,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
   final Color? inactiveTitleColor;
   final Color? inactiveSubtitleColor;
   final Color? disabledOverlayColor;
+  final double? maxSliderWidth;
 
   @override
   ThemeExtension<SettingsTheme> copyWith({
@@ -49,6 +53,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     Color? inactiveTitleColor,
     Color? inactiveSubtitleColor,
     Color? disabledOverlayColor,
+    double? maxSliderWidth,
   }) {
     return SettingsTheme(
       platform: platform ?? this.platform,
@@ -64,6 +69,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
       inactiveTitleColor: inactiveTitleColor ?? this.inactiveTitleColor,
       inactiveSubtitleColor: inactiveSubtitleColor ?? this.inactiveSubtitleColor,
       disabledOverlayColor: disabledOverlayColor ?? this.disabledOverlayColor,
+      maxSliderWidth: maxSliderWidth ?? this.maxSliderWidth,
     );
   }
 
@@ -86,6 +92,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
       inactiveTitleColor: Color.lerp(inactiveTitleColor, other.inactiveTitleColor, t),
       inactiveSubtitleColor: Color.lerp(inactiveSubtitleColor, other.inactiveSubtitleColor, t),
       disabledOverlayColor: Color.lerp(disabledOverlayColor, other.disabledOverlayColor, t),
+      maxSliderWidth: lerpDouble(maxSliderWidth, maxSliderWidth, t),
     );
   }
 
@@ -106,7 +113,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
           case DevicePlatform.device:
             throw Exception(
               'You can\'t use the DevicePlatform.device in this context. '
-                  'Incorrect platform: ThemeProvider.getTheme',
+              'Incorrect platform: ThemeProvider.getTheme',
             );
         }
         break;
@@ -125,7 +132,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
           case DevicePlatform.device:
             throw Exception(
               'You can\'t use the DevicePlatform.device in this context. '
-                  'Incorrect platform: ThemeProvider.getTheme',
+              'Incorrect platform: ThemeProvider.getTheme',
             );
         }
         break;
@@ -142,6 +149,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     settingsTileTextColor: Color.fromARGB(255, 27, 27, 27),
     inactiveTitleColor: Color.fromARGB(255, 146, 144, 148),
     inactiveSubtitleColor: Color.fromARGB(255, 197, 196, 201),
+    maxSliderWidth: 600,
   );
 
   static const defaultAndroidDarkTheme = SettingsTheme(
@@ -154,6 +162,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     settingsTileTextColor: Color.fromARGB(255, 240, 240, 240),
     inactiveTitleColor: Color.fromARGB(255, 118, 117, 122),
     inactiveSubtitleColor: Color.fromARGB(255, 71, 70, 74),
+    maxSliderWidth: 600,
   );
 
   static const defaultIosLightTheme = SettingsTheme(
@@ -168,6 +177,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     leadingIconsColor: CupertinoColors.inactiveGray,
     inactiveTitleColor: CupertinoColors.inactiveGray,
     inactiveSubtitleColor: CupertinoColors.inactiveGray,
+    maxSliderWidth: 600,
   );
 
   static const defaultIosDarkTheme = SettingsTheme(
@@ -182,6 +192,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     leadingIconsColor: CupertinoColors.inactiveGray,
     inactiveTitleColor: CupertinoColors.inactiveGray,
     inactiveSubtitleColor: CupertinoColors.inactiveGray,
+    maxSliderWidth: 600,
   );
 
   static const defaultWebLightTheme = SettingsTheme(
@@ -196,18 +207,20 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     disabledOverlayColor: Color.fromRGBO(255, 255, 255, 0.65),
     inactiveTitleColor: Color.fromARGB(255, 146, 144, 148),
     inactiveSubtitleColor: Color.fromARGB(255, 197, 196, 201),
+    maxSliderWidth: 600,
   );
 
   static const defaultWebDarkTheme = SettingsTheme(
-    platform: DevicePlatform.web,
-    tileHighlightColor: Color.fromARGB(255, 46, 46, 46),
-    settingsListBackground: Color.fromRGBO(32, 33, 36, 1),
-    titleTextColor: Color.fromRGBO(232, 234, 237, 1),
-    settingsSectionBackground: Color(0xFF292a2d),
-    settingsTileTextColor: Color.fromARGB(232, 234, 237, 240),
-    tileDescriptionTextColor: Color.fromARGB(154, 160, 166, 198),
-    leadingIconsColor: Color.fromARGB(255, 197, 197, 197),
-    inactiveTitleColor: Color.fromARGB(255, 118, 117, 122),
-    inactiveSubtitleColor: Color.fromARGB(255, 71, 70, 74),
+      platform: DevicePlatform.web,
+      tileHighlightColor: Color.fromARGB(255, 46, 46, 46),
+      settingsListBackground: Color.fromRGBO(32, 33, 36, 1),
+      titleTextColor: Color.fromRGBO(232, 234, 237, 1),
+      settingsSectionBackground: Color(0xFF292a2d),
+      settingsTileTextColor: Color.fromARGB(232, 234, 237, 240),
+      tileDescriptionTextColor: Color.fromARGB(154, 160, 166, 198),
+      leadingIconsColor: Color.fromARGB(255, 197, 197, 197),
+      inactiveTitleColor: Color.fromARGB(255, 118, 117, 122),
+      inactiveSubtitleColor: Color.fromARGB(255, 71, 70, 74),
+      maxSliderWidth: 600,
   );
 }

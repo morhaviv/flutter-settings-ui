@@ -20,7 +20,10 @@ class WebSettingsSection extends StatelessWidget {
   }
 
   Widget buildSectionBody(BuildContext context) {
-    final theme = Theme.of(context).extension<SettingsTheme>()!;
+    SettingsTheme? theme = Theme.of(context).extension<SettingsTheme>();
+    if (theme == null) {
+      theme = SettingsTheme.getTheme(Brightness.light, PlatformUtils.detectPlatform(context));
+    }
     final scaleFactor = MediaQuery.of(context).textScaleFactor;
 
     return Padding(

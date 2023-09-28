@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class CrossPlatformSettingsScreen extends StatefulWidget {
-  const CrossPlatformSettingsScreen({
-    Key key,
-  }) : super(key: key);
+  const CrossPlatformSettingsScreen();
 
   @override
   State<CrossPlatformSettingsScreen> createState() =>
@@ -39,30 +37,10 @@ class _CrossPlatformSettingsScreenState
         platform: selectedPlatform,
         lightTheme: !useCustomTheme
             ? null
-            : SettingsThemeData(
-                dividerColor: Colors.red,
-                tileDescriptionTextColor: Colors.yellow,
-                leadingIconsColor: Colors.pink,
-                settingsListBackground: Colors.white,
-                settingsSectionBackground: Colors.green,
-                settingsTileTextColor: Colors.tealAccent,
-                tileHighlightColor: Colors.blue,
-                titleTextColor: Colors.cyan,
-                trailingTextColor: Colors.deepOrangeAccent,
-              ),
+            : SettingsTheme.getTheme(Brightness.light, PlatformUtils.detectPlatform(context)),
         darkTheme: !useCustomTheme
             ? null
-            : SettingsThemeData(
-                dividerColor: Colors.pink,
-                tileDescriptionTextColor: Colors.blue,
-                leadingIconsColor: Colors.red,
-                settingsListBackground: Colors.grey,
-                settingsSectionBackground: Colors.tealAccent,
-                settingsTileTextColor: Colors.green,
-                tileHighlightColor: Colors.yellow,
-                titleTextColor: Colors.cyan,
-                trailingTextColor: Colors.orange,
-              ),
+            : SettingsTheme.getTheme(Brightness.dark, PlatformUtils.detectPlatform(context)),
         sections: [
           SettingsSection(
             title: Text('Common'),
@@ -96,7 +74,7 @@ class _CrossPlatformSettingsScreenState
                     });
                   }
                 },
-                value: Text(platformsMap[selectedPlatform]),
+                value: Text(platformsMap[selectedPlatform]!),
               ),
               SettingsTile.switchTile(
                 onToggle: (value) {
@@ -134,6 +112,23 @@ class _CrossPlatformSettingsScreenState
               SettingsTile.switchTile(
                 onToggle: (_) {},
                 initialValue: true,
+                leading: Icon(Icons.phonelink_lock),
+                title: Text('Lock app in background'),
+              ),
+              SettingsTile.sliderTile(
+                onToggle: (_) {},
+                initialValue: 3,
+                maxValue: 10,
+                sliderDivisions: 10,
+                leading: Icon(Icons.phonelink_lock),
+                title: Text('Lock app in background'),
+              ),
+              SettingsTile.sliderTile(
+                onToggle: (_) {},
+                initialValue: 3,
+                maxValue: 10,
+                trailing: Text("Test text"),
+                sliderDivisions: 10,
                 leading: Icon(Icons.phonelink_lock),
                 title: Text('Lock app in background'),
               ),
@@ -181,10 +176,9 @@ class _CrossPlatformSettingsScreenState
 
 class PlatformPickerScreen extends StatelessWidget {
   const PlatformPickerScreen({
-    Key key,
-    @required this.platform,
-    @required this.platforms,
-  }) : super(key: key);
+    required this.platform,
+    required this.platforms,
+  });
 
   final DevicePlatform platform;
   final Map<DevicePlatform, String> platforms;
@@ -202,7 +196,7 @@ class PlatformPickerScreen extends StatelessWidget {
               final platform = platforms[e];
 
               return SettingsTile(
-                title: Text(platform),
+                title: Text(platform!),
                 onPressed: (_) {
                   Navigator.of(context).pop(e);
                 },

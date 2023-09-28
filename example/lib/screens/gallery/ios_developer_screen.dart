@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class IosDeveloperScreen extends StatefulWidget {
-  const IosDeveloperScreen({Key key}) : super(key: key);
+  const IosDeveloperScreen();
 
   @override
   _IosDeveloperScreen createState() => _IosDeveloperScreen();

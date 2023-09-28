@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class WebChromeAddressesScreen extends StatefulWidget {
-  WebChromeAddressesScreen({Key key}) : super(key: key);
+  WebChromeAddressesScreen();
 
   @override
   State<WebChromeAddressesScreen> createState() =>

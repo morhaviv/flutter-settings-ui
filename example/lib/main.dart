@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:example/screens/gallery_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:settings_ui/settings_ui.dart';
 
 void main() {
   runApp(
@@ -39,11 +40,10 @@ class MyApp extends StatelessWidget {
         locale: DevicePreview.locale(context),
         theme: ThemeData.light(),
         darkTheme: ThemeData(
-            cupertinoOverrideTheme: CupertinoThemeData(
-                barBackgroundColor: Color(0xFF1b1b1b),
-                brightness: Brightness.dark,
-                textTheme: CupertinoTextThemeData(primaryColor: Colors.white)),
-            brightness: Brightness.dark),
+            cupertinoOverrideTheme:
+                CupertinoThemeData(barBackgroundColor: Color(0xFF1b1b1b), brightness: Brightness.dark, textTheme: CupertinoTextThemeData(primaryColor: Colors.white)),
+            // brightness: Brightness.light,
+            extensions: [SettingsTheme.defaultAndroidLightTheme]),
         title: 'Settings UI Demo',
         home: GalleryScreen(),
       );

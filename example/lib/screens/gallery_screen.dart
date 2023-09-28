@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class GalleryScreen extends StatelessWidget {
-  const GalleryScreen({Key key}) : super(key: key);
+  const GalleryScreen();
 
   @override
   Widget build(BuildContext context) {
