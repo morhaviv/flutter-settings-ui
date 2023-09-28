@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             cupertinoOverrideTheme:
                 CupertinoThemeData(barBackgroundColor: Color(0xFF1b1b1b), brightness: Brightness.dark, textTheme: CupertinoTextThemeData(primaryColor: Colors.white)),
             // brightness: Brightness.light,
-            extensions: [SettingsTheme.defaultAndroidLightTheme]),
+            extensions: [SettingsTheme.defaultIosLightTheme]),
         title: 'Settings UI Demo',
         home: GalleryScreen(),
       );

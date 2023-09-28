@@ -14,6 +14,9 @@ class CrossPlatformSettingsScreen extends StatefulWidget {
 class _CrossPlatformSettingsScreenState
     extends State<CrossPlatformSettingsScreen> {
   bool useCustomTheme = false;
+  int sliderCount = 3;
+
+
 
   final platformsMap = <DevicePlatform, String>{
     DevicePlatform.device: 'Default',
@@ -26,6 +29,7 @@ class _CrossPlatformSettingsScreenState
     DevicePlatform.windows: 'Windows',
   };
   DevicePlatform selectedPlatform = DevicePlatform.device;
+
 
   @override
   Widget build(BuildContext context) {
@@ -116,16 +120,26 @@ class _CrossPlatformSettingsScreenState
                 title: Text('Lock app in background'),
               ),
               SettingsTile.sliderTile(
-                onToggle: (_) {},
-                initialValue: 3,
+                onToggle: (value) {
+                  setState(() {
+                    sliderCount = value;
+                  });
+                },
+                enabled: false,
+                initialValue: sliderCount,
                 maxValue: 10,
+                trailing: Text("Test text"),
                 sliderDivisions: 10,
                 leading: Icon(Icons.phonelink_lock),
                 title: Text('Lock app in background'),
               ),
               SettingsTile.sliderTile(
-                onToggle: (_) {},
-                initialValue: 3,
+                onToggle: (value) {
+                  setState(() {
+                    sliderCount = value;
+                  });
+                },
+                initialValue: sliderCount,
                 maxValue: 10,
                 trailing: Text("Test text"),
                 sliderDivisions: 10,

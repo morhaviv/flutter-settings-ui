@@ -104,7 +104,7 @@ class SettingsTile extends AbstractSettingsTile {
   late final dynamic initialValue;
   late final bool enabled;
   late final double? maxValue;
-  late final double? sliderDivisions;
+  late final int? sliderDivisions;
 
   @override
   Widget build(BuildContext context) {

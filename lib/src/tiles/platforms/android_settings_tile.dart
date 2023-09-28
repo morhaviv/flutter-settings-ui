@@ -32,7 +32,7 @@ class AndroidSettingsTile extends StatelessWidget {
   final Widget? trailing;
   final Color? activeSwitchColor;
   final double? maxValue;
-  final double? sliderDivisions;
+  final int? sliderDivisions;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class AndroidSettingsTile extends StatelessWidget {
           flexDirection = Axis.vertical;
         }
 
-        tileTypeWidget = Slider(value: initialValue.toDouble(), max: 10, divisions: 10, label: initialValue.toString(), onChanged: onToggle);
+        tileTypeWidget = Slider(value: initialValue.toDouble(), max: maxValue!.toDouble(), divisions: sliderDivisions!, label: initialValue.toString(), onChanged: onToggle);
         // trailingPadding = const EdgeInsetsDirectional.only(top: 16, bottom: 8);
         trailingPadding = const EdgeInsetsDirectional.only(start: 16, end: 16);
 
