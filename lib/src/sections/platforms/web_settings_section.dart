@@ -25,8 +25,7 @@ class WebSettingsSection extends StatelessWidget {
       theme = SettingsTheme.getTheme(Brightness.light, PlatformUtils.detectPlatform(context));
     }
     final scaleFactor = MediaQuery.of(context).textScaleFactor;
-    print("margin");
-    print(margin);
+
     return Padding(
       padding: margin ?? EdgeInsets.zero,
       child: Column(

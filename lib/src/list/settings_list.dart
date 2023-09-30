@@ -94,8 +94,6 @@ class SettingsList extends StatelessWidget {
         itemCount: sections.length,
         padding: contentPadding ?? calculateDefaultPadding(platform, context),
         itemBuilder: (BuildContext context, int index) {
-          print(MediaQuery.of(context).size.width);
-          print(calculateDefaultPadding(platform, context));
           return sections[index];
         },
       ),

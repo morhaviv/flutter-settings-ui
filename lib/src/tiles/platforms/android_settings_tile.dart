@@ -95,9 +95,14 @@ class AndroidSettingsTile extends StatelessWidget {
           },
           highlightColor: theme.tileHighlightColor,
           child: Flex(
+            mainAxisSize: MainAxisSize.min,
             direction: flexDirection,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Row(
+              Flexible(
+                fit: flexDirection == Axis.horizontal ? FlexFit.tight : FlexFit.loose,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
                 children: [
                   if (leading != null)
                     Padding(
@@ -110,7 +115,10 @@ class AndroidSettingsTile extends StatelessWidget {
                         child: leading!,
                       ),
                     ),
-                  Padding(
+                  
+                    Flexible(
+                      fit: flexDirection == Axis.horizontal ? FlexFit.tight : FlexFit.loose,
+                      child: Container(
                     padding: EdgeInsetsDirectional.only(
                       start: 24,
                       end: 24,
@@ -118,6 +126,7 @@ class AndroidSettingsTile extends StatelessWidget {
                       top: 19 * scaleFactor,
                     ),
                     child: Column(
+                          mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         DefaultTextStyle(
@@ -138,7 +147,8 @@ class AndroidSettingsTile extends StatelessWidget {
                             ),
                           )
                         else if (description != null)
-                          Padding(
+                              Flexible(
+                          child: Padding(
                             padding: EdgeInsets.only(top: 4.0),
                             child: DefaultTextStyle(
                               style: TextStyle(
@@ -147,23 +157,24 @@ class AndroidSettingsTile extends StatelessWidget {
                               child: description!,
                             ),
                           ),
+                              ),
                       ],
                     ),
                   ),
+                    ),
                 ],
+                ),
               ),
-              if (tileType != SettingsTileType.sliderTile || (tileType == SettingsTileType.sliderTile && width > theme.maxSliderWidth!))
-                Spacer(),
               if (trailing != null || (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile))
-                Padding(
-                  padding: trailingPadding,
+                Flexible(
                   child: Flex(
+                    mainAxisSize: flexDirection == Axis.horizontal ? MainAxisSize.max : MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     direction: flexDirection,
                     children: [
-                      if (trailing != null)
-                        trailing!,
+                      if (trailing != null) Flexible(child: Container(padding: trailingPadding, child: trailing!)),
                       if (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile)
-                        tileTypeWidget!,
+                        Container(padding: trailingPadding, child: tileTypeWidget!),
                     ],
                   ),
                 )
@@ -172,13 +183,8 @@ class AndroidSettingsTile extends StatelessWidget {
         ),
       ),
     );
+    
+    return tile;
 
-    if (enabled) {
-      return tile;
-    }
-    return ColorFiltered(
-      colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.65), BlendMode.srcATop),
-      child: tile,
-    );
   }
 }

@@ -81,9 +81,6 @@ class WebSettingsTile extends StatelessWidget {
         break;
     }
 
-    print(flexDirection);
-    print(flexDirection == Axis.horizontal ? FlexFit.tight : FlexFit.loose);
-
     Widget tile = IgnorePointer(
       ignoring: !enabled,
       child: Material(
@@ -119,18 +116,9 @@ class WebSettingsTile extends StatelessWidget {
                           child: leading!,
                         ),
                       ),
-                    // Padding(
-                    //   padding: EdgeInsetsDirectional.only(
-                    //     start: 24,
-                    //     end: 24,
-                    //     bottom: 19 * scaleFactor,
-                    //     top: 19 * scaleFactor,
-                    //   ),
-                    //   child:
                     Flexible(
                       fit: flexDirection == Axis.horizontal ? FlexFit.tight : FlexFit.loose,
                       child: Container(
-                          // constraints: BoxConstraints(maxHeight: 1000, minHeight: 50),
                           padding: EdgeInsetsDirectional.only(
                             start: 24,
                             end: 24,
@@ -141,7 +129,6 @@ class WebSettingsTile extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Flexible(fit: FlexFit.tight,child: Text("test"))
                             DefaultTextStyle(
                                 style: TextStyle(
                                   color: this.enabled ? theme.settingsTileTextColor : theme.inactiveTitleColor,
@@ -175,11 +162,9 @@ class WebSettingsTile extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // ),
                   ],
                 ),
               ),
-              // if (tileType != SettingsTileType.sliderTile || (tileType == SettingsTileType.sliderTile && width > theme.maxSliderWidth!)) Spacer(),
               if (trailing != null || (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile))
                 Flexible(
                   child: Flex(
