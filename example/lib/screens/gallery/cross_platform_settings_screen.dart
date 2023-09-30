@@ -113,6 +113,15 @@ class _CrossPlatformSettingsScreenState
           SettingsSection(
             title: Text('Security'),
             tiles: <SettingsTile>[
+              SettingsTile(
+                trailing: Text("Kaki1, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2, Kaki2",
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  softWrap: true,
+                ),
+                leading: Icon(Icons.phonelink_lock),
+                title: Text('Lock app in background'),
+              ),
               SettingsTile.switchTile(
                 onToggle: (_) {},
                 initialValue: true,
@@ -153,6 +162,8 @@ class _CrossPlatformSettingsScreenState
                 title: Text('Use fingerprint'),
                 description: Text(
                   'Allow application to access stored fingerprint IDs',
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: true,
                 ),
               ),
               SettingsTile.switchTile(

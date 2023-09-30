@@ -81,6 +81,9 @@ class WebSettingsTile extends StatelessWidget {
         break;
     }
 
+    print(flexDirection);
+    print(flexDirection == Axis.horizontal ? FlexFit.tight : FlexFit.loose);
+
     Widget tile = IgnorePointer(
       ignoring: !enabled,
       child: Material(
@@ -95,11 +98,15 @@ class WebSettingsTile extends StatelessWidget {
                   }
                 },
           highlightColor: theme.tileHighlightColor,
-          child: Container(
-            child: Flex(
-              direction: flexDirection,
-              children: [
-                Row(
+          child: Flex(
+            mainAxisSize: MainAxisSize.min,
+            direction: flexDirection,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Flexible(
+                fit: flexDirection == Axis.horizontal ? FlexFit.tight : FlexFit.loose,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     if (leading != null)
                       Padding(
@@ -112,70 +119,81 @@ class WebSettingsTile extends StatelessWidget {
                           child: leading!,
                         ),
                       ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.only(
-                        start: 24,
-                        end: 24,
-                        bottom: 19 * scaleFactor,
-                        top: 19 * scaleFactor,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          DefaultTextStyle(
-                              style: TextStyle(
-                                color: this.enabled ? theme.settingsTileTextColor : theme.inactiveTitleColor,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              child: title ?? Container()),
-                          if (value != null)
-                            Padding(
-                              padding: EdgeInsets.only(top: 4.0),
-                              child: DefaultTextStyle(
+                    // Padding(
+                    //   padding: EdgeInsetsDirectional.only(
+                    //     start: 24,
+                    //     end: 24,
+                    //     bottom: 19 * scaleFactor,
+                    //     top: 19 * scaleFactor,
+                    //   ),
+                    //   child:
+                    Flexible(
+                      fit: flexDirection == Axis.horizontal ? FlexFit.tight : FlexFit.loose,
+                      child: Container(
+                          // constraints: BoxConstraints(maxHeight: 1000, minHeight: 50),
+                          padding: EdgeInsetsDirectional.only(
+                            start: 24,
+                            end: 24,
+                            bottom: 19 * scaleFactor,
+                            top: 19 * scaleFactor,
+                          ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Flexible(fit: FlexFit.tight,child: Text("test"))
+                            DefaultTextStyle(
                                 style: TextStyle(
-                                  color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
+                                  color: this.enabled ? theme.settingsTileTextColor : theme.inactiveTitleColor,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
                                 ),
-                                child: value!,
-                              ),
-                            )
-                          else if (description != null)
-                            Padding(
-                              padding: EdgeInsets.only(top: 4.0),
-                              child: DefaultTextStyle(
-                                style: TextStyle(
-                                  color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
+                                child: title ?? Container()),
+                            if (value != null)
+                              Padding(
+                                padding: EdgeInsets.only(top: 4.0),
+                                child: DefaultTextStyle(
+                                  style: TextStyle(
+                                    color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
+                                  ),
+                                  child: value!,
                                 ),
-                                child: description!,
+                              )
+                            else if (description != null)
+                              Flexible(
+                                child: Padding(
+                                  padding: EdgeInsets.only(top: 4.0),
+                                  child: DefaultTextStyle(
+                                    style: TextStyle(
+                                      color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
+                                    ),
+                                    child: description!,
+                                  ),
+                                ),
                               ),
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
+                    // ),
                   ],
                 ),
-                if (tileType != SettingsTileType.sliderTile || (tileType == SettingsTileType.sliderTile && width > theme.maxSliderWidth!))
-                  Spacer(),
-                if (trailing != null && (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile))
-                  Padding(
-                    padding: trailingPadding,
-                    child: Flex(
-                      direction: flexDirection,
-                      children: [
-                        trailing!,
-                        tileTypeWidget!,
-                      ],
-                    ),
-                  )
-                else if (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile)
-                  Padding(padding: trailingPadding, child: tileTypeWidget!)
-                else if (trailing != null)
-                  Padding(
-                    padding: trailingPadding,
-                    child: trailing!,
+              ),
+              // if (tileType != SettingsTileType.sliderTile || (tileType == SettingsTileType.sliderTile && width > theme.maxSliderWidth!)) Spacer(),
+              if (trailing != null || (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile))
+                Flexible(
+                  child: Flex(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    direction: flexDirection,
+                    children: [
+                      if (trailing != null) Flexible(child: Container(padding: trailingPadding, child: trailing!)),
+                      if (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile)
+                        Container(padding: trailingPadding, child: tileTypeWidget!),
+                    ],
                   ),
-              ],
-            ),
+                )
+            ],
           ),
         ),
       ),

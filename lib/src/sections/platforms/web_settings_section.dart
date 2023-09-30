@@ -25,7 +25,8 @@ class WebSettingsSection extends StatelessWidget {
       theme = SettingsTheme.getTheme(Brightness.light, PlatformUtils.detectPlatform(context));
     }
     final scaleFactor = MediaQuery.of(context).textScaleFactor;
-
+    print("margin");
+    print(margin);
     return Padding(
       padding: margin ?? EdgeInsets.zero,
       child: Column(
@@ -66,6 +67,7 @@ class WebSettingsSection extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         return tiles[index];
+        // return Text("sadndsauidsniudsanuidsua asu duias dhasi huidas hsuaidsidah sadiuuhi sdaud sahisu dah dsahuisaduihsdaiuh sdaui sadius dahuidsa hiuds ahuisda huasid husad husa dihsda uihsdaui dahsiusad ");
       },
       separatorBuilder: (BuildContext context, int index) {
         return Divider(

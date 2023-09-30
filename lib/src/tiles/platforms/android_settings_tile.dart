@@ -94,87 +94,80 @@ class AndroidSettingsTile extends StatelessWidget {
             }
           },
           highlightColor: theme.tileHighlightColor,
-          child: Container(
-            child: Flex(
-              direction: flexDirection,
-              children: [
-                Row(
-                  children: [
-                    if (leading != null)
-                      Padding(
-                        padding: EdgeInsetsDirectional.only(
-                          start: 24,
-                          // top: (width > MAX_WIDTH && tileType == SettingsTileType.sliderTile) ? 5 : 0,
-                        ),
-                        child: IconTheme(
-                          data: IconTheme.of(context).copyWith(color: this.enabled ? theme.leadingIconsColor : theme.inactiveTitleColor),
-                          child: leading!,
-                        ),
-                      ),
+          child: Flex(
+            direction: flexDirection,
+            children: [
+              Row(
+                children: [
+                  if (leading != null)
                     Padding(
                       padding: EdgeInsetsDirectional.only(
                         start: 24,
-                        end: 24,
-                        bottom: 19 * scaleFactor,
-                        top: 19 * scaleFactor,
+                        // top: (width > MAX_WIDTH && tileType == SettingsTileType.sliderTile) ? 5 : 0,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          DefaultTextStyle(
-                              style: TextStyle(
-                                color: this.enabled ? theme.settingsTileTextColor : theme.inactiveTitleColor,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              child: title ?? Container()),
-                          if (value != null)
-                            Padding(
-                              padding: EdgeInsets.only(top: 4.0),
-                              child: DefaultTextStyle(
-                                style: TextStyle(
-                                  color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
-                                ),
-                                child: value!,
-                              ),
-                            )
-                          else if (description != null)
-                            Padding(
-                              padding: EdgeInsets.only(top: 4.0),
-                              child: DefaultTextStyle(
-                                style: TextStyle(
-                                  color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
-                                ),
-                                child: description!,
-                              ),
-                            ),
-                        ],
+                      child: IconTheme(
+                        data: IconTheme.of(context).copyWith(color: this.enabled ? theme.leadingIconsColor : theme.inactiveTitleColor),
+                        child: leading!,
                       ),
                     ),
-                  ],
-                ),
-                if (tileType != SettingsTileType.sliderTile || (tileType == SettingsTileType.sliderTile && width > theme.maxSliderWidth!))
-                  Spacer(),
-                if (trailing != null && (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile))
                   Padding(
-                    padding: trailingPadding,
-                    child: Flex(
-                      direction: flexDirection,
+                    padding: EdgeInsetsDirectional.only(
+                      start: 24,
+                      end: 24,
+                      bottom: 19 * scaleFactor,
+                      top: 19 * scaleFactor,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        trailing!,
-                        tileTypeWidget!,
+                        DefaultTextStyle(
+                            style: TextStyle(
+                              color: this.enabled ? theme.settingsTileTextColor : theme.inactiveTitleColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            child: title ?? Container()),
+                        if (value != null)
+                          Padding(
+                            padding: EdgeInsets.only(top: 4.0),
+                            child: DefaultTextStyle(
+                              style: TextStyle(
+                                color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
+                              ),
+                              child: value!,
+                            ),
+                          )
+                        else if (description != null)
+                          Padding(
+                            padding: EdgeInsets.only(top: 4.0),
+                            child: DefaultTextStyle(
+                              style: TextStyle(
+                                color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
+                              ),
+                              child: description!,
+                            ),
+                          ),
                       ],
                     ),
-                  )
-                else if (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile)
-                  Padding(padding: trailingPadding, child: tileTypeWidget!)
-                else if (trailing != null)
-                    Padding(
-                      padding: trailingPadding,
-                      child: trailing!,
-                    ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+              if (tileType != SettingsTileType.sliderTile || (tileType == SettingsTileType.sliderTile && width > theme.maxSliderWidth!))
+                Spacer(),
+              if (trailing != null || (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile))
+                Padding(
+                  padding: trailingPadding,
+                  child: Flex(
+                    direction: flexDirection,
+                    children: [
+                      if (trailing != null)
+                        trailing!,
+                      if (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile)
+                        tileTypeWidget!,
+                    ],
+                  ),
+                )
+            ],
           ),
         ),
       ),
