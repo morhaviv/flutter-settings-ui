@@ -80,6 +80,7 @@ class AndroidSettingsTile extends StatelessWidget {
         break;
     }
 
+
     Widget tile = IgnorePointer(
       ignoring: !enabled,
       child: Material(
@@ -87,94 +88,100 @@ class AndroidSettingsTile extends StatelessWidget {
           onTap: cantShowAnimation
               ? null
               : () {
-            if (tileType == SettingsTileType.switchTile) {
-              onToggle?.call(!initialValue);
-            } else {
-              onPressed?.call(context);
-            }
-          },
+                  if (tileType == SettingsTileType.switchTile) {
+                    onToggle?.call(!initialValue);
+                  } else {
+                    onPressed?.call(context);
+                  }
+                },
           highlightColor: theme.tileHighlightColor,
           child: Flex(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: flexDirection == Axis.horizontal ? MainAxisSize.max : MainAxisSize.min,
             direction: flexDirection,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
                 fit: flexDirection == Axis.horizontal ? FlexFit.tight : FlexFit.loose,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (leading != null)
-                    Padding(
-                      padding: EdgeInsetsDirectional.only(
-                        start: 24,
-                        // top: (width > MAX_WIDTH && tileType == SettingsTileType.sliderTile) ? 5 : 0,
-                      ),
-                      child: IconTheme(
-                        data: IconTheme.of(context).copyWith(color: this.enabled ? theme.leadingIconsColor : theme.inactiveTitleColor),
-                        child: leading!,
-                      ),
-                    ),
-                  
-                    Flexible(
-                      fit: flexDirection == Axis.horizontal ? FlexFit.tight : FlexFit.loose,
-                      child: Container(
-                    padding: EdgeInsetsDirectional.only(
-                      start: 24,
-                      end: 24,
-                      bottom: 19 * scaleFactor,
-                      top: 19 * scaleFactor,
-                    ),
-                    child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        DefaultTextStyle(
-                            style: TextStyle(
-                              color: this.enabled ? theme.settingsTileTextColor : theme.inactiveTitleColor,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                            ),
-                            child: title ?? Container()),
-                        if (value != null)
-                          Padding(
-                            padding: EdgeInsets.only(top: 4.0),
-                            child: DefaultTextStyle(
-                              style: TextStyle(
-                                color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
-                              ),
-                              child: value!,
-                            ),
-                          )
-                        else if (description != null)
-                              Flexible(
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 4.0),
-                            child: DefaultTextStyle(
-                              style: TextStyle(
-                                color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
-                              ),
-                              child: description!,
-                            ),
+                flex: flexDirection == Axis.horizontal ? 3 : 1,
+                child: Container(
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      if (leading != null)
+                        Padding(
+                          padding: EdgeInsetsDirectional.only(
+                            start: 24,
+                            // top: (width > MAX_WIDTH && tileType == SettingsTileType.sliderTile) ? 5 : 0,
                           ),
+                          child: IconTheme(
+                            data: IconTheme.of(context).copyWith(color: this.enabled ? theme.leadingIconsColor : theme.inactiveTitleColor),
+                            child: leading!,
+                          ),
+                        ),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        // fit: flexDirection == Axis.horizontal ? FlexFit.tight : FlexFit.loose,
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsetsDirectional.only(
+                            start: 24,
+                            end: 24,
+                            bottom: 19 * scaleFactor,
+                            top: 19 * scaleFactor,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: DefaultTextStyle(
+                                    style: TextStyle(
+                                      color: this.enabled ? theme.settingsTileTextColor : theme.inactiveTitleColor,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    child: title ?? Container()),
                               ),
-                      ],
-                    ),
+                              if (value != null)
+                                Padding(
+                                  padding: EdgeInsets.only(top: 4.0),
+                                  child: DefaultTextStyle(
+                                    style: TextStyle(
+                                      color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
+                                    ),
+                                    child: value!,
+                                  ),
+                                )
+                              else if (description != null)
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 4.0),
+                                    child: DefaultTextStyle(
+                                      style: TextStyle(
+                                        color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
+                                      ),
+                                      child: description!,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                    ),
-                ],
                 ),
               ),
               if (trailing != null || (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile))
                 Flexible(
                   child: Flex(
-                    mainAxisSize: flexDirection == Axis.horizontal ? MainAxisSize.max : MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
                     direction: flexDirection,
                     children: [
                       if (trailing != null) Flexible(child: Container(padding: trailingPadding, child: trailing!)),
                       if (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile)
-                        Container(padding: trailingPadding, child: tileTypeWidget!),
+                        Flexible(child: Container(padding: trailingPadding, child: tileTypeWidget!)),
                     ],
                   ),
                 )
@@ -183,8 +190,7 @@ class AndroidSettingsTile extends StatelessWidget {
         ),
       ),
     );
-    
-    return tile;
 
+    return tile;
   }
 }

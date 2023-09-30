@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:settings_ui/src/utils/settings_theme_extension.dart';
@@ -81,6 +80,7 @@ class WebSettingsTile extends StatelessWidget {
         break;
     }
 
+
     Widget tile = IgnorePointer(
       ignoring: !enabled,
       child: Material(
@@ -96,85 +96,92 @@ class WebSettingsTile extends StatelessWidget {
                 },
           highlightColor: theme.tileHighlightColor,
           child: Flex(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: flexDirection == Axis.horizontal ? MainAxisSize.max : MainAxisSize.min,
             direction: flexDirection,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
                 fit: flexDirection == Axis.horizontal ? FlexFit.tight : FlexFit.loose,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (leading != null)
-                      Padding(
-                        padding: EdgeInsetsDirectional.only(
-                          start: 24,
-                          // top: (width > MAX_WIDTH && tileType == SettingsTileType.sliderTile) ? 5 : 0,
+                flex: flexDirection == Axis.horizontal ? 3 : 1,
+                child: Container(
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      if (leading != null)
+                        Padding(
+                          padding: EdgeInsetsDirectional.only(
+                            start: 24,
+                            // top: (width > MAX_WIDTH && tileType == SettingsTileType.sliderTile) ? 5 : 0,
+                          ),
+                          child: IconTheme(
+                            data: IconTheme.of(context).copyWith(color: this.enabled ? theme.leadingIconsColor : theme.inactiveTitleColor),
+                            child: leading!,
+                          ),
                         ),
-                        child: IconTheme(
-                          data: IconTheme.of(context).copyWith(color: this.enabled ? theme.leadingIconsColor : theme.inactiveTitleColor),
-                          child: leading!,
-                        ),
-                      ),
-                    Flexible(
-                      fit: flexDirection == Axis.horizontal ? FlexFit.tight : FlexFit.loose,
-                      child: Container(
+                      Flexible(
+                        fit: FlexFit.tight,
+                        // fit: flexDirection == Axis.horizontal ? FlexFit.tight : FlexFit.loose,
+                        child: Container(
+                          width: double.infinity,
                           padding: EdgeInsetsDirectional.only(
                             start: 24,
                             end: 24,
                             bottom: 19 * scaleFactor,
                             top: 19 * scaleFactor,
                           ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            DefaultTextStyle(
-                                style: TextStyle(
-                                  color: this.enabled ? theme.settingsTileTextColor : theme.inactiveTitleColor,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                child: title ?? Container()),
-                            if (value != null)
-                              Padding(
-                                padding: EdgeInsets.only(top: 4.0),
-                                child: DefaultTextStyle(
-                                  style: TextStyle(
-                                    color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
-                                  ),
-                                  child: value!,
-                                ),
-                              )
-                            else if (description != null)
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
                               Flexible(
-                                child: Padding(
+                                child: DefaultTextStyle(
+                                    style: TextStyle(
+                                      color: this.enabled ? theme.settingsTileTextColor : theme.inactiveTitleColor,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    child: title ?? Container()),
+                              ),
+                              if (value != null)
+                                Padding(
                                   padding: EdgeInsets.only(top: 4.0),
                                   child: DefaultTextStyle(
                                     style: TextStyle(
                                       color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
                                     ),
-                                    child: description!,
+                                    child: value!,
+                                  ),
+                                )
+                              else if (description != null)
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 4.0),
+                                    child: DefaultTextStyle(
+                                      style: TextStyle(
+                                        color: this.enabled ? theme.tileDescriptionTextColor : theme.inactiveTitleColor,
+                                      ),
+                                      child: description!,
+                                    ),
                                   ),
                                 ),
-                              ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               if (trailing != null || (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile))
                 Flexible(
                   child: Flex(
-                    mainAxisSize: flexDirection == Axis.horizontal ? MainAxisSize.max : MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
                     direction: flexDirection,
                     children: [
                       if (trailing != null) Flexible(child: Container(padding: trailingPadding, child: trailing!)),
                       if (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile)
-                        Container(padding: trailingPadding, child: tileTypeWidget!),
+                        Flexible(child: Container(padding: trailingPadding, child: tileTypeWidget!)),
                     ],
                   ),
                 )

@@ -119,8 +119,10 @@ class _CrossPlatformSettingsScreenState
                   maxLines: 1,
                   softWrap: true,
                 ),
+                value: Text("53"),
                 leading: Icon(Icons.phonelink_lock),
                 title: Text('Lock app in background'),
+                description: Text('Do something interesting'),
               ),
               SettingsTile.switchTile(
                 onToggle: (_) {},
