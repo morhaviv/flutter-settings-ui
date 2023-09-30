@@ -183,7 +183,7 @@ class WebSettingsTile extends StatelessWidget {
               if (trailing != null || (tileType == SettingsTileType.switchTile || tileType == SettingsTileType.sliderTile))
                 Flexible(
                   child: Flex(
-                    mainAxisSize: MainAxisSize.max,
+                    mainAxisSize: flexDirection == Axis.horizontal ? MainAxisSize.max : MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.end,
                     direction: flexDirection,
                     children: [
@@ -199,12 +199,6 @@ class WebSettingsTile extends StatelessWidget {
       ),
     );
 
-    if (enabled) {
-      return tile;
-    }
-    return ColorFiltered(
-      colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.65), BlendMode.srcATop),
-      child: tile,
-    );
+    return tile;
   }
 }

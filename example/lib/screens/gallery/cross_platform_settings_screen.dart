@@ -162,7 +162,6 @@ class _CrossPlatformSettingsScreenState
                 title: Text('Use fingerprint'),
                 description: Text(
                   'Allow application to access stored fingerprint IDs',
-                  overflow: TextOverflow.ellipsis,
                   softWrap: true,
                 ),
               ),
