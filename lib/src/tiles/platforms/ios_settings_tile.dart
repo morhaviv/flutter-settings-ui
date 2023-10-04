@@ -17,6 +17,7 @@ class IOSSettingsTile extends StatefulWidget {
     required this.enabled,
     required this.trailing,
     required this.maxValue,
+    required this.minValue,
     required this.sliderDivisions,
     Key? key,
   }) : super(key: key);
@@ -33,6 +34,7 @@ class IOSSettingsTile extends StatefulWidget {
   final Color? activeSwitchColor;
   final Widget? trailing;
   final double? maxValue;
+  final double? minValue;
   final int? sliderDivisions;
 
   @override
@@ -145,6 +147,7 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
             CupertinoSlider(
               value: widget.initialValue.toDouble(),
               max: widget.maxValue!,
+              min: widget.minValue!,
               divisions: widget.sliderDivisions!,
               onChanged: widget.onToggle,
               activeColor: widget.enabled

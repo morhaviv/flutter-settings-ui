@@ -23,6 +23,7 @@ class SettingsTile extends AbstractSettingsTile {
     initialValue = null;
     activeSwitchColor = null;
     maxValue = null;
+    minValue = null;
     sliderDivisions = null;
     tileType = SettingsTileType.simpleTile;
   }
@@ -41,6 +42,7 @@ class SettingsTile extends AbstractSettingsTile {
     initialValue = null;
     activeSwitchColor = null;
     maxValue = null;
+    minValue = null;
     sliderDivisions = null;
     tileType = SettingsTileType.navigationTile;
   }
@@ -59,6 +61,7 @@ class SettingsTile extends AbstractSettingsTile {
   }) : super(key: key) {
     value = null;
     maxValue = null;
+    minValue = null;
     sliderDivisions = null;
     tileType = SettingsTileType.switchTile;
   }
@@ -75,6 +78,7 @@ class SettingsTile extends AbstractSettingsTile {
     this.onPressed,
     this.enabled = true,
     this.maxValue,
+    this.minValue,
     this.sliderDivisions,
     Key? key,
   }) : super(key: key) {
@@ -104,6 +108,7 @@ class SettingsTile extends AbstractSettingsTile {
   late final dynamic initialValue;
   late final bool enabled;
   late final double? maxValue;
+  late final double? minValue;
   late final int? sliderDivisions;
 
   @override
@@ -130,6 +135,7 @@ class SettingsTile extends AbstractSettingsTile {
           initialValue: initialValue ?? false,
           trailing: trailing,
           maxValue: maxValue,
+          minValue: minValue,
           sliderDivisions: sliderDivisions,
         );
       case DevicePlatform.iOS:
@@ -148,6 +154,7 @@ class SettingsTile extends AbstractSettingsTile {
           activeSwitchColor: activeSwitchColor,
           initialValue: initialValue ?? false,
           maxValue: maxValue,
+          minValue: minValue,
           sliderDivisions: sliderDivisions,
         );
       case DevicePlatform.web:
@@ -164,6 +171,7 @@ class SettingsTile extends AbstractSettingsTile {
           activeSwitchColor: activeSwitchColor,
           initialValue: initialValue ?? false,
           maxValue: maxValue,
+          minValue: minValue,
           sliderDivisions: sliderDivisions,
         );
       case DevicePlatform.device:
