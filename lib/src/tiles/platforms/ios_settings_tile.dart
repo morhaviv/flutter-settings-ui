@@ -128,10 +128,11 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
   }) {
     final scaleFactor = MediaQuery.of(context).textScaleFactor;
 
-    return Expanded(
+    return Flexible(
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          if (widget.trailing != null) Expanded(child: widget.trailing!),
+          if (widget.trailing != null) Flexible(child: widget.trailing!),
           if (widget.tileType == SettingsTileType.switchTile)
             CupertinoSwitch(
               value: widget.initialValue ?? true,
@@ -142,7 +143,7 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
             ),
           if (widget.tileType == SettingsTileType.sliderTile)
             CupertinoSlider(
-              value: widget.initialValue,
+              value: widget.initialValue.toDouble(),
               max: widget.maxValue!,
               divisions: widget.sliderDivisions!,
               onChanged: widget.onToggle,
@@ -240,8 +241,9 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
                   Padding(
                     padding: const EdgeInsetsDirectional.only(end: 16),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
+                        Flexible(
                           child: Padding(
                             padding: EdgeInsetsDirectional.only(
                               top: 12.5 * scaleFactor,

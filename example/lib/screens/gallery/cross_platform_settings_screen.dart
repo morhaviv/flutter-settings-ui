@@ -14,7 +14,7 @@ class CrossPlatformSettingsScreen extends StatefulWidget {
 class _CrossPlatformSettingsScreenState
     extends State<CrossPlatformSettingsScreen> {
   bool useCustomTheme = false;
-  int sliderCount = 3;
+  double sliderCount = 3;
 
 
 
