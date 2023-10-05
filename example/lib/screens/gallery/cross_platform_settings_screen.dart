@@ -81,7 +81,7 @@ class _CrossPlatformSettingsScreenState
                 value: Text(platformsMap[selectedPlatform]!),
               ),
               SettingsTile.switchTile(
-                onToggle: (value) {
+                onChanged: (value) {
                   setState(() {
                     useCustomTheme = value;
                   });
@@ -125,13 +125,13 @@ class _CrossPlatformSettingsScreenState
                 description: Text('Do something interesting'),
               ),
               SettingsTile.switchTile(
-                onToggle: (_) {},
+                onChanged: (_) {},
                 initialValue: true,
                 leading: Icon(Icons.phonelink_lock),
                 title: Text('Lock app in background'),
               ),
               SettingsTile.sliderTile(
-                onToggle: (value) {
+                onChanged: (value) {
                   setState(() {
                     sliderCount = value;
                   });
@@ -145,7 +145,7 @@ class _CrossPlatformSettingsScreenState
                 title: Text('Lock app in background'),
               ),
               SettingsTile.sliderTile(
-                onToggle: (value) {
+                onChanged: (value) {
                   setState(() {
                     sliderCount = value;
                   });
@@ -158,7 +158,7 @@ class _CrossPlatformSettingsScreenState
                 title: Text('Lock app in background'),
               ),
               SettingsTile.switchTile(
-                onToggle: (_) {},
+                onChanged: (_) {},
                 initialValue: true,
                 leading: Icon(Icons.fingerprint),
                 title: Text('Use fingerprint'),
@@ -168,13 +168,13 @@ class _CrossPlatformSettingsScreenState
                 ),
               ),
               SettingsTile.switchTile(
-                onToggle: (_) {},
+                onChanged: (_) {},
                 initialValue: true,
                 leading: Icon(Icons.lock),
                 title: Text('Change password'),
               ),
               SettingsTile.switchTile(
-                onToggle: (_) {},
+                onChanged: (_) {},
                 initialValue: true,
                 leading: Icon(Icons.notifications_active),
                 title: Text('Enable notifications'),

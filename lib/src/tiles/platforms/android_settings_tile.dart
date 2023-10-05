@@ -9,7 +9,9 @@ class AndroidSettingsTile extends StatelessWidget {
     required this.title,
     required this.description,
     required this.onPressed,
-    required this.onToggle,
+    required this.onChanged,
+    required this.onChangedStart,
+    required this.onChangedEnd,
     required this.value,
     required this.initialValue,
     required this.activeSwitchColor,
@@ -26,7 +28,9 @@ class AndroidSettingsTile extends StatelessWidget {
   final Widget? title;
   final Widget? description;
   final Function(BuildContext context)? onPressed;
-  final Function(dynamic value)? onToggle;
+  final Function(dynamic value)? onChanged;
+  final Function(dynamic value)? onChangedStart;
+  final Function(dynamic value)? onChangedEnd;
   final Widget? value;
   final dynamic initialValue;
   final bool enabled;
@@ -44,7 +48,7 @@ class AndroidSettingsTile extends StatelessWidget {
     }
     final scaleFactor = MediaQuery.of(context).textScaleFactor;
 
-    final cantShowAnimation = tileType == SettingsTileType.switchTile ? onToggle == null && onPressed == null : onPressed == null;
+    final cantShowAnimation = tileType == SettingsTileType.switchTile ? onChanged == null && onPressed == null : onPressed == null;
     Widget? tileTypeWidget;
     EdgeInsetsDirectional trailingPadding;
     Axis flexDirection = Axis.horizontal;
@@ -60,7 +64,7 @@ class AndroidSettingsTile extends StatelessWidget {
         tileTypeWidget = Switch(
           value: initialValue,
           activeColor: enabled ? activeSwitchColor : theme.inactiveTitleColor ?? Color.fromRGBO(138, 180, 248, 1.0),
-          onChanged: onToggle,
+          onChanged: onChanged,
         );
         trailingPadding = const EdgeInsetsDirectional.only(end: 8);
         break;
@@ -75,13 +79,21 @@ class AndroidSettingsTile extends StatelessWidget {
           flexDirection = Axis.vertical;
         }
 
-        tileTypeWidget = Slider(value: initialValue.toDouble(), max: maxValue!.toDouble(), min: minValue!.toDouble(), divisions: sliderDivisions!, label: initialValue.toString(), onChanged: onToggle);
+        tileTypeWidget = Slider(
+          value: initialValue.toDouble(),
+          max: maxValue!.toDouble(),
+          min: minValue!.toDouble(),
+          divisions: sliderDivisions!,
+          label: initialValue.toString(),
+          onChanged: onChanged,
+          onChangeStart: onChangedStart,
+          onChangeEnd: onChangedEnd,
+        );
         // trailingPadding = const EdgeInsetsDirectional.only(top: 16, bottom: 8);
         trailingPadding = const EdgeInsetsDirectional.only(start: 16, end: 16);
 
         break;
     }
-
 
     Widget tile = IgnorePointer(
       ignoring: !enabled,
@@ -91,7 +103,7 @@ class AndroidSettingsTile extends StatelessWidget {
               ? null
               : () {
                   if (tileType == SettingsTileType.switchTile) {
-                    onToggle?.call(!initialValue);
+                    onChanged?.call(!initialValue);
                   } else {
                     onPressed?.call(context);
                   }

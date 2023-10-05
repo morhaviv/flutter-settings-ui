@@ -24,7 +24,7 @@ class _WebChromeAddressesScreenState extends State<WebChromeAddressesScreen> {
             tiles: [
               SettingsTile.switchTile(
                 initialValue: _toggle,
-                onToggle: (_) {
+                onChanged: (_) {
                   setState(() {
                     _toggle = _;
                   });

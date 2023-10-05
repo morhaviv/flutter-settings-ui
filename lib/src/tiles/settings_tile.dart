@@ -19,7 +19,9 @@ class SettingsTile extends AbstractSettingsTile {
     this.enabled = true,
     Key? key,
   }) : super(key: key) {
-    onToggle = null;
+    onChanged = null;
+    onChangedStart = null;
+    onChangedEnd = null;
     initialValue = null;
     activeSwitchColor = null;
     maxValue = null;
@@ -38,7 +40,9 @@ class SettingsTile extends AbstractSettingsTile {
     this.enabled = true,
     Key? key,
   }) : super(key: key) {
-    onToggle = null;
+    onChanged = null;
+    onChangedStart = null;
+    onChangedEnd = null;
     initialValue = null;
     activeSwitchColor = null;
     maxValue = null;
@@ -49,7 +53,7 @@ class SettingsTile extends AbstractSettingsTile {
 
   SettingsTile.switchTile({
     required this.initialValue,
-    required this.onToggle,
+    required this.onChanged,
     this.activeSwitchColor,
     this.leading,
     this.trailing,
@@ -62,6 +66,8 @@ class SettingsTile extends AbstractSettingsTile {
     value = null;
     maxValue = null;
     minValue = null;
+    onChangedStart = null;
+    onChangedEnd = null;
     sliderDivisions = null;
     tileType = SettingsTileType.switchTile;
   }
@@ -69,7 +75,9 @@ class SettingsTile extends AbstractSettingsTile {
 
   SettingsTile.sliderTile({
     required this.initialValue,
-    required this.onToggle,
+    required this.onChanged,
+    this.onChangedStart,
+    this.onChangedEnd,
     this.activeSwitchColor,
     this.leading,
     this.trailing,
@@ -103,7 +111,9 @@ class SettingsTile extends AbstractSettingsTile {
 
   late final Color? activeSwitchColor;
   late final Widget? value;
-  late final Function(dynamic value)? onToggle;
+  late final Function(dynamic value)? onChanged;
+  late final Function(dynamic value)? onChangedStart;
+  late final Function(dynamic value)? onChangedEnd;
   late final SettingsTileType tileType;
   late final dynamic initialValue;
   late final bool enabled;
@@ -125,7 +135,9 @@ class SettingsTile extends AbstractSettingsTile {
         return AndroidSettingsTile(
           description: description,
           onPressed: onPressed,
-          onToggle: onToggle,
+          onChanged: onChanged,
+          onChangedStart: onChangedStart,
+          onChangedEnd: onChangedEnd,
           tileType: tileType,
           value: value,
           leading: leading,
@@ -144,7 +156,9 @@ class SettingsTile extends AbstractSettingsTile {
         return IOSSettingsTile(
           description: description,
           onPressed: onPressed,
-          onToggle: onToggle,
+          onChanged: onChanged,
+          onChangedStart: onChangedStart,
+          onChangedEnd: onChangedEnd,
           tileType: tileType,
           value: value,
           leading: leading,
@@ -161,7 +175,9 @@ class SettingsTile extends AbstractSettingsTile {
         return WebSettingsTile(
           description: description,
           onPressed: onPressed,
-          onToggle: onToggle,
+          onChanged: onChanged,
+          onChangedStart: onChangedStart,
+          onChangedEnd: onChangedEnd,
           tileType: tileType,
           value: value,
           leading: leading,

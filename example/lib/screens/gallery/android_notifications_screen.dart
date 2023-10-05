@@ -77,18 +77,18 @@ class _AndroidNotificationsScreenState
               ),
               SettingsTile.switchTile(
                 initialValue: false,
-                onToggle: (_) {},
+                onChanged: (_) {},
                 title: Text('Hide silent notifications in status bar'),
               ),
               SettingsTile.switchTile(
                 enabled: true,
                 initialValue: false,
-                onToggle: (_) {},
+                onChanged: (_) {},
                 title: Text('Allow notification snoozing'),
               ),
               SettingsTile.switchTile(
                 initialValue: useNotificationDotOnAppIcon,
-                onToggle: (value) {
+                onChanged: (value) {
                   setState(() {
                     useNotificationDotOnAppIcon = value;
                   });
@@ -97,7 +97,7 @@ class _AndroidNotificationsScreenState
               ),
               SettingsTile.switchTile(
                 initialValue: false,
-                onToggle: (_) {},
+                onChanged: (_) {},
                 title: Text('Enable notifications'),
                 description: Text('Get suggested actions, replies and more'),
               ),

@@ -26,7 +26,7 @@ class _IosDeveloperScreen extends State<IosDeveloperScreen> {
               title: Text('APPEARANCE'),
               tiles: [
                 SettingsTile.switchTile(
-                  onToggle: (value) {
+                  onChanged: (value) {
                     setState(() {
                       darkTheme = value;
                     });
@@ -55,7 +55,7 @@ class _IosDeveloperScreen extends State<IosDeveloperScreen> {
               title: Text('UI AUTOMATION'),
               tiles: [
                 SettingsTile.switchTile(
-                  onToggle: (_) {},
+                  onChanged: (_) {},
                   initialValue: true,
                   title: Text('Enable UI Automation'),
                 ),
@@ -63,7 +63,7 @@ class _IosDeveloperScreen extends State<IosDeveloperScreen> {
                   title: Text('Multipath Networking'),
                 ),
                 SettingsTile.switchTile(
-                  onToggle: (_) {},
+                  onChanged: (_) {},
                   initialValue: false,
                   title: Text('HTTP/3'),
                 ),
@@ -73,7 +73,7 @@ class _IosDeveloperScreen extends State<IosDeveloperScreen> {
               title: Text('STATE RESTORATION TESTING'),
               tiles: [
                 SettingsTile.switchTile(
-                  onToggle: (_) {},
+                  onChanged: (_) {},
                   initialValue: false,
                   title: Text(
                     'Fast App Termination',
@@ -96,7 +96,7 @@ class _IosDeveloperScreen extends State<IosDeveloperScreen> {
                   title: Text('Add Refresh Rate'),
                 ),
                 SettingsTile.switchTile(
-                  onToggle: (_) {},
+                  onChanged: (_) {},
                   initialValue: false,
                   title: Text('Unlimited Ad Presentation'),
                 ),

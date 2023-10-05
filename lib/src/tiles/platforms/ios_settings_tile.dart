@@ -10,7 +10,9 @@ class IOSSettingsTile extends StatefulWidget {
     required this.title,
     required this.description,
     required this.onPressed,
-    required this.onToggle,
+    required this.onChanged,
+    required this.onChangedStart,
+    required this.onChangedEnd,
     required this.value,
     required this.initialValue,
     required this.activeSwitchColor,
@@ -27,7 +29,9 @@ class IOSSettingsTile extends StatefulWidget {
   final Widget? title;
   final Widget? description;
   final Function(BuildContext context)? onPressed;
-  final Function(dynamic value)? onToggle;
+  final Function(dynamic value)? onChanged;
+  final Function(dynamic value)? onChangedStart;
+  final Function(dynamic value)? onChangedEnd;
   final Widget? value;
   final dynamic initialValue;
   final bool enabled;
@@ -85,12 +89,8 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
 
     return ClipRRect(
       borderRadius: BorderRadius.vertical(
-        top: additionalInfo.enableTopBorderRadius
-            ? Radius.circular(12)
-            : Radius.zero,
-        bottom: additionalInfo.enableBottomBorderRadius
-            ? Radius.circular(12)
-            : Radius.zero,
+        top: additionalInfo.enableTopBorderRadius ? Radius.circular(12) : Radius.zero,
+        bottom: additionalInfo.enableBottomBorderRadius ? Radius.circular(12) : Radius.zero,
       ),
       child: content,
     );
@@ -138,10 +138,8 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
           if (widget.tileType == SettingsTileType.switchTile)
             CupertinoSwitch(
               value: widget.initialValue ?? true,
-              onChanged: widget.onToggle,
-              activeColor: widget.enabled
-                  ? widget.activeSwitchColor
-                  : theme.inactiveTitleColor,
+              onChanged: widget.onChanged,
+              activeColor: widget.enabled ? widget.activeSwitchColor : theme.inactiveTitleColor,
             ),
           if (widget.tileType == SettingsTileType.sliderTile)
             CupertinoSlider(
@@ -149,18 +147,15 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
               max: widget.maxValue!,
               min: widget.minValue!,
               divisions: widget.sliderDivisions!,
-              onChanged: widget.onToggle,
-              activeColor: widget.enabled
-                  ? widget.activeSwitchColor
-                  : theme.inactiveTitleColor,
+              onChanged: widget.onChanged,
+              onChangeStart: widget.onChangedStart,
+              onChangeEnd: widget.onChangedEnd,
+              activeColor: widget.enabled ? widget.activeSwitchColor : theme.inactiveTitleColor,
             ),
-          if (widget.tileType == SettingsTileType.navigationTile &&
-              widget.value != null)
+          if (widget.tileType == SettingsTileType.navigationTile && widget.value != null)
             DefaultTextStyle(
               style: TextStyle(
-                color: widget.enabled
-                    ? theme.trailingTextColor
-                    : theme.inactiveTitleColor,
+                color: widget.enabled ? theme.trailingTextColor : theme.inactiveTitleColor,
                 fontSize: 17,
               ),
               child: widget.value!,
@@ -169,8 +164,7 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
             Padding(
               padding: const EdgeInsetsDirectional.only(start: 6, end: 2),
               child: IconTheme(
-                data: IconTheme.of(context)
-                    .copyWith(color: theme.leadingIconsColor),
+                data: IconTheme.of(context).copyWith(color: theme.leadingIconsColor),
                 child: Icon(
                   CupertinoIcons.chevron_forward,
                   size: 18 * scaleFactor,
@@ -211,16 +205,11 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
                 () => changePressState(isPressed: false),
               );
             },
-      onTapDown: (_) =>
-          widget.onPressed == null ? null : changePressState(isPressed: true),
-      onTapUp: (_) =>
-          widget.onPressed == null ? null : changePressState(isPressed: false),
-      onTapCancel: () =>
-          widget.onPressed == null ? null : changePressState(isPressed: false),
+      onTapDown: (_) => widget.onPressed == null ? null : changePressState(isPressed: true),
+      onTapUp: (_) => widget.onPressed == null ? null : changePressState(isPressed: false),
+      onTapCancel: () => widget.onPressed == null ? null : changePressState(isPressed: false),
       child: Container(
-        color: isPressed
-            ? theme.tileHighlightColor
-            : theme.settingsSectionBackground,
+        color: isPressed ? theme.tileHighlightColor : theme.settingsSectionBackground,
         padding: EdgeInsetsDirectional.only(start: 18),
         child: Row(
           children: [
@@ -229,9 +218,7 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
                 padding: const EdgeInsetsDirectional.only(end: 12.0),
                 child: IconTheme.merge(
                   data: IconThemeData(
-                    color: widget.enabled
-                        ? theme.leadingIconsColor
-                        : theme.inactiveTitleColor,
+                    color: widget.enabled ? theme.leadingIconsColor : theme.inactiveTitleColor,
                   ),
                   child: widget.leading!,
                 ),
@@ -254,9 +241,7 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
                             ),
                             child: DefaultTextStyle(
                               style: TextStyle(
-                                color: widget.enabled
-                                    ? theme.settingsTileTextColor
-                                    : theme.inactiveTitleColor,
+                                color: widget.enabled ? theme.settingsTileTextColor : theme.inactiveTitleColor,
                                 fontSize: 16,
                               ),
                               child: widget.title!,
@@ -267,8 +252,7 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
                       ],
                     ),
                   ),
-                  if (widget.description == null &&
-                      additionalInfo.needToShowDivider)
+                  if (widget.description == null && additionalInfo.needToShowDivider)
                     Divider(
                       height: 0,
                       thickness: 0.7,
@@ -300,8 +284,7 @@ class IOSSettingsTileAdditionalInfo extends InheritedWidget {
   bool updateShouldNotify(IOSSettingsTileAdditionalInfo old) => true;
 
   static IOSSettingsTileAdditionalInfo of(BuildContext context) {
-    final IOSSettingsTileAdditionalInfo? result = context
-        .dependOnInheritedWidgetOfExactType<IOSSettingsTileAdditionalInfo>();
+    final IOSSettingsTileAdditionalInfo? result = context.dependOnInheritedWidgetOfExactType<IOSSettingsTileAdditionalInfo>();
     // assert(result != null, 'No IOSSettingsTileAdditionalInfo found in context');
     return result ??
         IOSSettingsTileAdditionalInfo(
