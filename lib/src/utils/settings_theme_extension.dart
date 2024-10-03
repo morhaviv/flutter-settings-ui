@@ -20,6 +20,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     this.inactiveTitleColor,
     this.inactiveSubtitleColor,
     this.disabledOverlayColor,
+    this.settingWidgetBackgroundColor,
     this.maxSliderWidth = 600,
   });
 
@@ -36,6 +37,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
   final Color? inactiveTitleColor;
   final Color? inactiveSubtitleColor;
   final Color? disabledOverlayColor;
+  final Color? settingWidgetBackgroundColor;
   final double? maxSliderWidth;
 
   @override
@@ -53,6 +55,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     Color? inactiveTitleColor,
     Color? inactiveSubtitleColor,
     Color? disabledOverlayColor,
+    Color? settingWidgetBackgroundColor,
     double? maxSliderWidth,
   }) {
     return SettingsTheme(
@@ -69,6 +72,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
       inactiveTitleColor: inactiveTitleColor ?? this.inactiveTitleColor,
       inactiveSubtitleColor: inactiveSubtitleColor ?? this.inactiveSubtitleColor,
       disabledOverlayColor: disabledOverlayColor ?? this.disabledOverlayColor,
+      settingWidgetBackgroundColor: settingWidgetBackgroundColor ?? this.settingWidgetBackgroundColor,
       maxSliderWidth: maxSliderWidth ?? this.maxSliderWidth,
     );
   }
@@ -92,6 +96,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
       inactiveTitleColor: Color.lerp(inactiveTitleColor, other.inactiveTitleColor, t),
       inactiveSubtitleColor: Color.lerp(inactiveSubtitleColor, other.inactiveSubtitleColor, t),
       disabledOverlayColor: Color.lerp(disabledOverlayColor, other.disabledOverlayColor, t),
+      settingWidgetBackgroundColor: Color.lerp(settingWidgetBackgroundColor, other.settingWidgetBackgroundColor, t),
       maxSliderWidth: lerpDouble(maxSliderWidth, maxSliderWidth, t),
     );
   }
@@ -177,6 +182,7 @@ class SettingsTheme extends ThemeExtension<SettingsTheme> {
     leadingIconsColor: CupertinoColors.inactiveGray,
     inactiveTitleColor: CupertinoColors.inactiveGray,
     inactiveSubtitleColor: CupertinoColors.inactiveGray,
+
     maxSliderWidth: 600,
   );
 

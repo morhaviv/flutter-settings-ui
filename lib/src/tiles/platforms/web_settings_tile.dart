@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
-import 'package:settings_ui/src/utils/settings_theme_extension.dart';
 
 class WebSettingsTile extends StatelessWidget {
   const WebSettingsTile({
@@ -48,6 +47,8 @@ class WebSettingsTile extends StatelessWidget {
     }
     final scaleFactor = MediaQuery.of(context).textScaleFactor;
 
+    Color? activeSwitchColor = this.activeSwitchColor ?? theme.settingWidgetBackgroundColor;
+
     final cantShowAnimation = tileType == SettingsTileType.switchTile ? onChanged == null && onPressed == null : onPressed == null;
     Widget? tileTypeWidget;
     EdgeInsetsDirectional trailingPadding;
@@ -80,6 +81,7 @@ class WebSettingsTile extends StatelessWidget {
         }
 
         tileTypeWidget = Slider(
+            activeColor: enabled ? activeSwitchColor : theme.inactiveTitleColor ?? Color.fromRGBO(138, 180, 248, 1.0),
             value: initialValue.toDouble(),
             min: minValue!.toDouble(),
             max: maxValue!.toDouble(),

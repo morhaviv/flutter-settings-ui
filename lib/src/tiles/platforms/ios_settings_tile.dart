@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
-import 'package:settings_ui/src/utils/settings_theme_extension.dart';
 
 class IOSSettingsTile extends StatefulWidget {
   const IOSSettingsTile({
@@ -116,7 +115,7 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
       ),
       child: DefaultTextStyle(
         style: TextStyle(
-          color: theme.titleTextColor,
+          color: widget.enabled ? theme.settingsTileTextColor : theme.inactiveTitleColor,
           fontSize: 13,
         ),
         child: widget.description!,
@@ -130,6 +129,9 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
   }) {
     final scaleFactor = MediaQuery.of(context).textScaleFactor;
 
+
+    Color? activeSwitchColor = this.widget.activeSwitchColor ?? theme.settingWidgetBackgroundColor;
+
     return Flexible(
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -139,7 +141,7 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
             CupertinoSwitch(
               value: widget.initialValue ?? true,
               onChanged: widget.onChanged,
-              activeColor: widget.enabled ? widget.activeSwitchColor : theme.inactiveTitleColor,
+              activeColor: widget.enabled ? activeSwitchColor : theme.inactiveTitleColor,
             ),
           if (widget.tileType == SettingsTileType.sliderTile)
             CupertinoSlider(
@@ -150,7 +152,7 @@ class _IOSSettingsTileState extends State<IOSSettingsTile> {
               onChanged: widget.onChanged,
               onChangeStart: widget.onChangedStart,
               onChangeEnd: widget.onChangedEnd,
-              activeColor: widget.enabled ? widget.activeSwitchColor : theme.inactiveTitleColor,
+              activeColor: widget.enabled ? activeSwitchColor : theme.inactiveTitleColor,
             ),
           if (widget.tileType == SettingsTileType.navigationTile && widget.value != null)
             DefaultTextStyle(
